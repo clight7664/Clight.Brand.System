@@ -2,64 +2,64 @@
 @implements IDisposable
 
 <nav class="space-y-1">
-    <NavLink class="flex items-center px-3 py-2 text-sm font-medium rounded-lg text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white hover:bg-neutral-100/80 dark:hover:bg-neutral-800/60 transition-colors" href="" Match="NavLinkMatch.All">
-        <svg class="w-4 h-4 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <NavLink class="flex items-center px-3 py-2 text-sm font-medium rounded-lg text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white hover:bg-neutral-100/80 dark:hover:bg-neutral-800/60 transition-colors whitespace-nowrap overflow-hidden" href="" Match="NavLinkMatch.All" title="@I18n["Nav.Dashboard"]">
+        <svg class="w-4 h-4 mr-3 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <rect x="3" y="3" width="7" height="7" rx="1.5" stroke-width="1.5" />
             <rect x="14" y="3" width="7" height="7" rx="1.5" stroke-width="1.5" />
             <rect x="14" y="14" width="7" height="7" rx="1.5" stroke-width="1.5" />
             <rect x="3" y="14" width="7" height="7" rx="1.5" stroke-width="1.5" />
         </svg>
-        <span>@I18n["Nav.Dashboard"]</span>
+        <span class="truncate">@I18n["Nav.Dashboard"]</span>
     </NavLink>
 
-    <NavLink class="flex items-center px-3 py-2 text-sm font-medium rounded-lg text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white hover:bg-neutral-100/80 dark:hover:bg-neutral-800/60 transition-colors" href="preview">
-        <svg class="w-4 h-4 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <NavLink class="flex items-center px-3 py-2 text-sm font-medium rounded-lg text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white hover:bg-neutral-100/80 dark:hover:bg-neutral-800/60 transition-colors whitespace-nowrap overflow-hidden" href="preview" title="@I18n["Nav.Preview"]">
+        <svg class="w-4 h-4 mr-3 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <circle cx="12" cy="12" r="9" stroke-width="1.5" />
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 3a9 9 0 000 18v-18z" />
         </svg>
-        <span>@I18n["Nav.Preview"]</span>
+        <span class="truncate">@I18n["Nav.Preview"]</span>
     </NavLink>
 
-    <NavLink class="flex items-center px-3 py-2 text-sm font-medium rounded-lg text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white hover:bg-neutral-100/80 dark:hover:bg-neutral-800/60 transition-colors" href="generator">
-        <svg class="w-4 h-4 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <NavLink class="flex items-center px-3 py-2 text-sm font-medium rounded-lg text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white hover:bg-neutral-100/80 dark:hover:bg-neutral-800/60 transition-colors whitespace-nowrap overflow-hidden" href="generator" title="@I18n["Nav.Generator"]">
+        <svg class="w-4 h-4 mr-3 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4" />
         </svg>
-        <span>@I18n["Nav.Generator"]</span>
+        <span class="truncate">@I18n["Nav.Generator"]</span>
     </NavLink>
 
-    <NavLink class="flex items-center px-3 py-2 text-sm font-medium rounded-lg text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white hover:bg-neutral-100/80 dark:hover:bg-neutral-800/60 transition-colors" href="export">
-        <svg class="w-4 h-4 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <NavLink class="flex items-center px-3 py-2 text-sm font-medium rounded-lg text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white hover:bg-neutral-100/80 dark:hover:bg-neutral-800/60 transition-colors whitespace-nowrap overflow-hidden" href="export" title="@I18n["Nav.Export"]">
+        <svg class="w-4 h-4 mr-3 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
         </svg>
-        <span>@I18n["Nav.Export"]</span>
+        <span class="truncate">@I18n["Nav.Export"]</span>
     </NavLink>
 
-    <NavLink class="flex items-center px-3 py-2 text-sm font-medium rounded-lg text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white hover:bg-neutral-100/80 dark:hover:bg-neutral-800/60 transition-colors" href="evolution">
-        <svg class="w-4 h-4 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <NavLink class="flex items-center px-3 py-2 text-sm font-medium rounded-lg text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white hover:bg-neutral-100/80 dark:hover:bg-neutral-800/60 transition-colors whitespace-nowrap overflow-hidden" href="evolution" title="@I18n["Nav.Evolution"]">
+        <svg class="w-4 h-4 mr-3 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
         </svg>
-        <span>@I18n["Nav.Evolution"]</span>
+        <span class="truncate">@I18n["Nav.Evolution"]</span>
     </NavLink>
 
-    <NavLink class="flex items-center px-3 py-2 text-sm font-medium rounded-lg text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white hover:bg-neutral-100/80 dark:hover:bg-neutral-800/60 transition-colors" href="guideline">
-        <svg class="w-4 h-4 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <NavLink class="flex items-center px-3 py-2 text-sm font-medium rounded-lg text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white hover:bg-neutral-100/80 dark:hover:bg-neutral-800/60 transition-colors whitespace-nowrap overflow-hidden" href="guideline" title="@I18n["Nav.Guideline"]">
+        <svg class="w-4 h-4 mr-3 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
         </svg>
-        <span>@I18n["Nav.Guideline"]</span>
+        <span class="truncate">@I18n["Nav.Guideline"]</span>
     </NavLink>
 
-    <NavLink class="flex items-center px-3 py-2 text-sm font-medium rounded-lg text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white hover:bg-neutral-100/80 dark:hover:bg-neutral-800/60 transition-colors" href="applications">
-        <svg class="w-4 h-4 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <NavLink class="flex items-center px-3 py-2 text-sm font-medium rounded-lg text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white hover:bg-neutral-100/80 dark:hover:bg-neutral-800/60 transition-colors whitespace-nowrap overflow-hidden" href="applications" title="@I18n["Nav.Applications"]">
+        <svg class="w-4 h-4 mr-3 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
         </svg>
-        <span>@I18n["Nav.Applications"]</span>
+        <span class="truncate">@I18n["Nav.Applications"]</span>
     </NavLink>
 
-    <NavLink class="flex items-center px-3 py-2 text-sm font-medium rounded-lg text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white hover:bg-neutral-100/80 dark:hover:bg-neutral-800/60 transition-colors" href="typography">
-        <svg class="w-4 h-4 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <NavLink class="flex items-center px-3 py-2 text-sm font-medium rounded-lg text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white hover:bg-neutral-100/80 dark:hover:bg-neutral-800/60 transition-colors whitespace-nowrap overflow-hidden" href="typography" title="@I18n["Nav.Typography"]">
+        <svg class="w-4 h-4 mr-3 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01" />
         </svg>
-        <span>@I18n["Nav.Typography"]</span>
+        <span class="truncate">@I18n["Nav.Typography"]</span>
     </NavLink>
 </nav>
 

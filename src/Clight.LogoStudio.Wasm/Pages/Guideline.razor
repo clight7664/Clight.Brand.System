@@ -9,18 +9,18 @@
     <!-- Header -->
     <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-            <h1 class="text-2xl font-bold tracking-tight text-neutral-900 dark:text-white">@I18n["Guideline.Title"]</h1>
-            <p class="text-xs text-neutral-500 mt-1">@I18n["Guideline.Desc"]</p>
+            <h1 class="text-2xl font-bold tracking-tight text-neutral-900 dark:text-white truncate">@I18n["Guideline.Title"]</h1>
+            <p class="text-xs text-neutral-500 mt-1 truncate">@I18n["Guideline.Desc"]</p>
         </div>
 
-        <div class="flex items-center space-x-2">
-            <button @onclick='() => DownloadGuidelinesMd("zh")' class="px-3 py-2 text-xs font-semibold rounded-lg bg-neutral-900 text-white dark:bg-white dark:text-neutral-900 hover:bg-neutral-800 transition-colors flex items-center space-x-1.5 shadow-sm">
-                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" /></svg>
-                <span>@I18n["Guideline.DownloadMdZh"]</span>
+        <div class="flex items-center space-x-2 shrink-0">
+            <button @onclick='() => DownloadGuidelinesMd("zh")' class="px-3 py-2 text-xs font-semibold rounded-lg bg-neutral-900 text-white dark:bg-white dark:text-neutral-900 hover:bg-neutral-800 transition-colors flex items-center space-x-1.5 shadow-sm whitespace-nowrap">
+                <svg class="w-3.5 h-3.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" /></svg>
+                <span class="truncate">@I18n["Guideline.DownloadMdZh"]</span>
             </button>
-            <button @onclick='() => DownloadGuidelinesMd("en")' class="px-3 py-2 text-xs font-semibold rounded-lg border border-neutral-300 dark:border-neutral-700 hover:bg-neutral-100 dark:hover:bg-neutral-800 text-neutral-700 dark:text-neutral-300 transition-colors flex items-center space-x-1.5 shadow-sm">
-                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" /></svg>
-                <span>@I18n["Guideline.DownloadMdEn"]</span>
+            <button @onclick='() => DownloadGuidelinesMd("en")' class="px-3 py-2 text-xs font-semibold rounded-lg border border-neutral-300 dark:border-neutral-700 hover:bg-neutral-100 dark:hover:bg-neutral-800 text-neutral-700 dark:text-neutral-300 transition-colors flex items-center space-x-1.5 shadow-sm whitespace-nowrap">
+                <svg class="w-3.5 h-3.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" /></svg>
+                <span class="truncate">@I18n["Guideline.DownloadMdEn"]</span>
             </button>
         </div>
     </div>
@@ -28,99 +28,107 @@
     <!-- 4 Guideline Pillars Matrix -->
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
         <!-- 1. Construction Diagram Card -->
-        <div class="p-6 rounded-2xl border border-neutral-200/80 dark:border-neutral-800 bg-white/70 dark:bg-neutral-900/70 backdrop-blur-sm space-y-4">
-            <div class="flex items-center justify-between border-b border-neutral-100 dark:border-neutral-800 pb-2">
-                <div>
-                    <h3 class="text-sm font-semibold text-neutral-900 dark:text-white">@I18n["Guideline.ConstructionTitle"]</h3>
-                    <p class="text-xs text-neutral-400">@I18n["Guideline.ConstructionSub"]</p>
+        <div class="p-6 rounded-2xl border border-neutral-200/80 dark:border-neutral-800 bg-white/70 dark:bg-neutral-900/70 backdrop-blur-sm space-y-4 flex flex-col justify-between">
+            <div class="space-y-3">
+                <div class="flex items-center justify-between border-b border-neutral-100 dark:border-neutral-800 pb-2">
+                    <div class="truncate mr-2">
+                        <h3 class="text-sm font-semibold text-neutral-900 dark:text-white truncate" title="@I18n["Guideline.ConstructionTitle"]">@I18n["Guideline.ConstructionTitle"]</h3>
+                        <p class="text-xs text-neutral-400 truncate" title="@I18n["Guideline.ConstructionSub"]">@I18n["Guideline.ConstructionSub"]</p>
+                    </div>
+                    <span class="text-[10px] font-mono text-neutral-400 shrink-0">φ = 1.618</span>
                 </div>
-                <span class="text-[10px] font-mono text-neutral-400">φ = 1.618</span>
+                <div class="w-full aspect-square max-h-[320px] rounded-xl bg-[#FAF9F6] border border-neutral-200 p-2 flex items-center justify-center">
+                    @((MarkupString)SvgRenderer.RenderConstructionSvg(LogoParameters.CreateApproved()))
+                </div>
             </div>
-            <div class="w-full aspect-square max-h-[320px] rounded-xl bg-[#FAF9F6] border border-neutral-200 p-2 flex items-center justify-center">
-                @((MarkupString)SvgRenderer.RenderConstructionSvg(LogoParameters.CreateApproved()))
-            </div>
-            <p class="text-xs text-neutral-500 leading-relaxed">
+            <p class="text-xs text-neutral-500 leading-relaxed line-clamp-3" title="@I18n["Guideline.ConstructionDesc"]">
                 @I18n["Guideline.ConstructionDesc"]
             </p>
         </div>
 
         <!-- 2. Clear Space Card -->
-        <div class="p-6 rounded-2xl border border-neutral-200/80 dark:border-neutral-800 bg-white/70 dark:bg-neutral-900/70 backdrop-blur-sm space-y-4">
-            <div class="flex items-center justify-between border-b border-neutral-100 dark:border-neutral-800 pb-2">
-                <div>
-                    <h3 class="text-sm font-semibold text-neutral-900 dark:text-white">@I18n["Guideline.ClearSpaceTitle"]</h3>
-                    <p class="text-xs text-neutral-400">@I18n["Guideline.ClearSpaceSub"]</p>
+        <div class="p-6 rounded-2xl border border-neutral-200/80 dark:border-neutral-800 bg-white/70 dark:bg-neutral-900/70 backdrop-blur-sm space-y-4 flex flex-col justify-between">
+            <div class="space-y-3">
+                <div class="flex items-center justify-between border-b border-neutral-100 dark:border-neutral-800 pb-2">
+                    <div class="truncate mr-2">
+                        <h3 class="text-sm font-semibold text-neutral-900 dark:text-white truncate" title="@I18n["Guideline.ClearSpaceTitle"]">@I18n["Guideline.ClearSpaceTitle"]</h3>
+                        <p class="text-xs text-neutral-400 truncate" title="@I18n["Guideline.ClearSpaceSub"]">@I18n["Guideline.ClearSpaceSub"]</p>
+                    </div>
+                    <span class="text-[10px] font-mono text-emerald-500 font-bold shrink-0">1X RULE</span>
                 </div>
-                <span class="text-[10px] font-mono text-emerald-500 font-bold">1X RULE</span>
+                <div class="w-full aspect-square max-h-[320px] rounded-xl bg-[#FAF9F6] border border-neutral-200 p-2 flex items-center justify-center">
+                    @((MarkupString)SvgRenderer.RenderSafeAreaSvg(LogoParameters.CreateApproved()))
+                </div>
             </div>
-            <div class="w-full aspect-square max-h-[320px] rounded-xl bg-[#FAF9F6] border border-neutral-200 p-2 flex items-center justify-center">
-                @((MarkupString)SvgRenderer.RenderSafeAreaSvg(LogoParameters.CreateApproved()))
-            </div>
-            <p class="text-xs text-neutral-500 leading-relaxed">
+            <p class="text-xs text-neutral-500 leading-relaxed line-clamp-3" title="@I18n["Guideline.ClearSpaceDesc"]">
                 @I18n["Guideline.ClearSpaceDesc"]
             </p>
         </div>
 
         <!-- 3. Minimum Size Card -->
-        <div class="p-6 rounded-2xl border border-neutral-200/80 dark:border-neutral-800 bg-white/70 dark:bg-neutral-900/70 backdrop-blur-sm space-y-4">
-            <div class="flex items-center justify-between border-b border-neutral-100 dark:border-neutral-800 pb-2">
-                <div>
-                    <h3 class="text-sm font-semibold text-neutral-900 dark:text-white">@I18n["Guideline.MinSizeTitle"]</h3>
-                    <p class="text-xs text-neutral-400">@I18n["Guideline.MinSizeSub"]</p>
+        <div class="p-6 rounded-2xl border border-neutral-200/80 dark:border-neutral-800 bg-white/70 dark:bg-neutral-900/70 backdrop-blur-sm space-y-4 flex flex-col justify-between">
+            <div class="space-y-3">
+                <div class="flex items-center justify-between border-b border-neutral-100 dark:border-neutral-800 pb-2">
+                    <div class="truncate mr-2">
+                        <h3 class="text-sm font-semibold text-neutral-900 dark:text-white truncate" title="@I18n["Guideline.MinSizeTitle"]">@I18n["Guideline.MinSizeTitle"]</h3>
+                        <p class="text-xs text-neutral-400 truncate" title="@I18n["Guideline.MinSizeSub"]">@I18n["Guideline.MinSizeSub"]</p>
+                    </div>
+                    <span class="text-[10px] font-mono text-neutral-400 shrink-0">16px / 5mm</span>
                 </div>
-                <span class="text-[10px] font-mono text-neutral-400">16px / 5mm</span>
-            </div>
-            <div class="w-full aspect-square max-h-[320px] rounded-xl bg-[#FAF9F6] dark:bg-[#161616] border border-neutral-200 dark:border-neutral-800 p-6 flex flex-col items-center justify-center space-y-6">
-                <div class="flex items-center space-x-8 text-neutral-900 dark:text-white">
-                    <div class="flex flex-col items-center space-y-2">
-                        <div class="w-4 h-4 bg-white dark:bg-neutral-900 p-0.5 rounded shadow-sm flex items-center justify-center border border-neutral-200 dark:border-neutral-800">
-                            @((MarkupString)SvgRenderer.RenderSvg(LogoParameters.CreateApproved(), new SvgRenderOptions { Responsive = true, FillColor = "currentColor" }))
+                <div class="w-full aspect-square max-h-[320px] rounded-xl bg-[#FAF9F6] dark:bg-[#161616] border border-neutral-200 dark:border-neutral-800 p-6 flex flex-col items-center justify-center space-y-6">
+                    <div class="flex items-center space-x-8 text-neutral-900 dark:text-white">
+                        <div class="flex flex-col items-center space-y-2">
+                            <div class="w-4 h-4 bg-white dark:bg-neutral-900 p-0.5 rounded shadow-sm flex items-center justify-center border border-neutral-200 dark:border-neutral-800">
+                                @((MarkupString)SvgRenderer.RenderSvg(LogoParameters.CreateApproved(), new SvgRenderOptions { Responsive = true, FillColor = "currentColor" }))
+                            </div>
+                            <span class="text-[10px] font-mono text-neutral-500">16px (Favicon)</span>
                         </div>
-                        <span class="text-[10px] font-mono text-neutral-500">16px (Favicon)</span>
-                    </div>
-                    <div class="flex flex-col items-center space-y-2">
-                        <div class="w-8 h-8 bg-white dark:bg-neutral-900 p-1 rounded shadow-sm flex items-center justify-center border border-neutral-200 dark:border-neutral-800">
-                            @((MarkupString)SvgRenderer.RenderSvg(LogoParameters.CreateApproved(), new SvgRenderOptions { Responsive = true, FillColor = "currentColor" }))
+                        <div class="flex flex-col items-center space-y-2">
+                            <div class="w-8 h-8 bg-white dark:bg-neutral-900 p-1 rounded shadow-sm flex items-center justify-center border border-neutral-200 dark:border-neutral-800">
+                                @((MarkupString)SvgRenderer.RenderSvg(LogoParameters.CreateApproved(), new SvgRenderOptions { Responsive = true, FillColor = "currentColor" }))
+                            </div>
+                            <span class="text-[10px] font-mono text-neutral-500">32px (App Icon)</span>
                         </div>
-                        <span class="text-[10px] font-mono text-neutral-500">32px (App Icon)</span>
-                    </div>
-                    <div class="flex flex-col items-center space-y-2">
-                        <div class="w-16 h-16 bg-white dark:bg-neutral-900 p-2 rounded shadow-sm flex items-center justify-center border border-neutral-200 dark:border-neutral-800">
-                            @((MarkupString)SvgRenderer.RenderSvg(LogoParameters.CreateApproved(), new SvgRenderOptions { Responsive = true, FillColor = "currentColor" }))
+                        <div class="flex flex-col items-center space-y-2">
+                            <div class="w-16 h-16 bg-white dark:bg-neutral-900 p-2 rounded shadow-sm flex items-center justify-center border border-neutral-200 dark:border-neutral-800">
+                                @((MarkupString)SvgRenderer.RenderSvg(LogoParameters.CreateApproved(), new SvgRenderOptions { Responsive = true, FillColor = "currentColor" }))
+                            </div>
+                            <span class="text-[10px] font-mono text-neutral-500">64px (Desktop)</span>
                         </div>
-                        <span class="text-[10px] font-mono text-neutral-500">64px (Desktop)</span>
                     </div>
                 </div>
             </div>
-            <p class="text-xs text-neutral-500 leading-relaxed">
+            <p class="text-xs text-neutral-500 leading-relaxed line-clamp-3" title="@I18n["Guideline.MinSizeDesc"]">
                 @I18n["Guideline.MinSizeDesc"]
             </p>
         </div>
 
         <!-- 4. Color Usage Card -->
-        <div class="p-6 rounded-2xl border border-neutral-200/80 dark:border-neutral-800 bg-white/70 dark:bg-neutral-900/70 backdrop-blur-sm space-y-4">
-            <div class="flex items-center justify-between border-b border-neutral-100 dark:border-neutral-800 pb-2">
-                <div>
-                    <h3 class="text-sm font-semibold text-neutral-900 dark:text-white">@I18n["Guideline.ColorUsageTitle"]</h3>
-                    <p class="text-xs text-neutral-400">@I18n["Guideline.ColorUsageSub"]</p>
-                </div>
-                <span class="text-[10px] font-mono text-neutral-400">WCAG AAA</span>
-            </div>
-            <div class="w-full aspect-square max-h-[320px] rounded-xl border border-neutral-200 overflow-hidden grid grid-cols-2">
-                <div class="bg-[#FAF9F6] p-6 flex flex-col items-center justify-center space-y-3">
-                    <div class="w-16 h-16">
-                        @((MarkupString)SvgRenderer.RenderSvg(LogoParameters.CreateApproved(), new SvgRenderOptions { Responsive = true, FillColor = "#111111" }))
+        <div class="p-6 rounded-2xl border border-neutral-200/80 dark:border-neutral-800 bg-white/70 dark:bg-neutral-900/70 backdrop-blur-sm space-y-4 flex flex-col justify-between">
+            <div class="space-y-3">
+                <div class="flex items-center justify-between border-b border-neutral-100 dark:border-neutral-800 pb-2">
+                    <div class="truncate mr-2">
+                        <h3 class="text-sm font-semibold text-neutral-900 dark:text-white truncate" title="@I18n["Guideline.ColorUsageTitle"]">@I18n["Guideline.ColorUsageTitle"]</h3>
+                        <p class="text-xs text-neutral-400 truncate" title="@I18n["Guideline.ColorUsageSub"]">@I18n["Guideline.ColorUsageSub"]</p>
                     </div>
-                    <span class="text-[10px] font-mono text-neutral-500">Black on Light</span>
+                    <span class="text-[10px] font-mono text-neutral-400 shrink-0">WCAG AAA</span>
                 </div>
-                <div class="bg-[#111111] p-6 flex flex-col items-center justify-center space-y-3">
-                    <div class="w-16 h-16">
-                        @((MarkupString)SvgRenderer.RenderSvg(LogoParameters.CreateApproved(), new SvgRenderOptions { Responsive = true, FillColor = "#FFFFFF" }))
+                <div class="w-full aspect-square max-h-[320px] rounded-xl border border-neutral-200 overflow-hidden grid grid-cols-2">
+                    <div class="bg-[#FAF9F6] p-6 flex flex-col items-center justify-center space-y-3">
+                        <div class="w-16 h-16">
+                            @((MarkupString)SvgRenderer.RenderSvg(LogoParameters.CreateApproved(), new SvgRenderOptions { Responsive = true, FillColor = "#111111" }))
+                        </div>
+                        <span class="text-[10px] font-mono text-neutral-500">Black on Light</span>
                     </div>
-                    <span class="text-[10px] font-mono text-neutral-400">White on Dark</span>
+                    <div class="bg-[#111111] p-6 flex flex-col items-center justify-center space-y-3">
+                        <div class="w-16 h-16">
+                            @((MarkupString)SvgRenderer.RenderSvg(LogoParameters.CreateApproved(), new SvgRenderOptions { Responsive = true, FillColor = "#FFFFFF" }))
+                        </div>
+                        <span class="text-[10px] font-mono text-neutral-400">White on Dark</span>
+                    </div>
                 </div>
             </div>
-            <p class="text-xs text-neutral-500 leading-relaxed">
+            <p class="text-xs text-neutral-500 leading-relaxed line-clamp-3" title="@I18n["Guideline.ColorUsageDesc"]">
                 @I18n["Guideline.ColorUsageDesc"]
             </p>
         </div>

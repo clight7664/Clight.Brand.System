@@ -1,35 +1,39 @@
 @inject IJSRuntime JSRuntime
 
-<div class="p-4 rounded-xl border border-neutral-200/80 dark:border-neutral-800 bg-white/50 dark:bg-neutral-900/50 backdrop-blur-sm space-y-3">
-    <!-- Color Swatch Rectangle -->
-    <div class="w-full h-24 rounded-lg shadow-inner border border-black/5 dark:border-white/5 flex items-end p-2 transition-transform hover:scale-[1.02]" style="background-color: @Color.Hex;">
-        <span class="text-xs font-mono font-bold px-2 py-0.5 rounded bg-black/20 text-white backdrop-blur-sm">
-            @Color.Hex
-        </span>
-    </div>
-
-    <!-- Title & Description -->
-    <div>
-        <h4 class="text-sm font-semibold text-neutral-900 dark:text-white">@Color.Name</h4>
-        <p class="text-xs text-neutral-500 dark:text-neutral-400 line-clamp-2 mt-0.5">@Color.Description</p>
-    </div>
-
-    <!-- Color Codes Breakdown -->
-    <div class="space-y-1 text-[11px] font-mono text-neutral-600 dark:text-neutral-400 pt-2 border-t border-neutral-100 dark:border-neutral-800/80">
-        <div class="flex justify-between">
-            <span class="text-neutral-400">RGB:</span>
-            <span>@Color.R, @Color.G, @Color.B</span>
+<div class="p-4 rounded-xl border border-neutral-200/80 dark:border-neutral-800 bg-white/50 dark:bg-neutral-900/50 backdrop-blur-sm space-y-3 flex flex-col justify-between min-h-[260px]">
+    <div class="space-y-3">
+        <!-- Color Swatch Rectangle -->
+        <div class="w-full h-24 rounded-lg shadow-inner border border-black/5 dark:border-white/5 flex items-end p-2 transition-transform hover:scale-[1.02]" style="background-color: @Color.Hex;">
+            <span class="text-xs font-mono font-bold px-2 py-0.5 rounded bg-black/20 text-white backdrop-blur-sm">
+                @Color.Hex
+            </span>
         </div>
-        <div class="flex justify-between">
-            <span class="text-neutral-400">CMYK:</span>
-            <span>@Color.Cyan, @Color.Magenta, @Color.Yellow, @Color.KeyBlack</span>
+
+        <!-- Title & Description -->
+        <div>
+            <h4 class="text-sm font-semibold text-neutral-900 dark:text-white truncate" title="@Color.Name">@Color.Name</h4>
+            <p class="text-xs text-neutral-500 dark:text-neutral-400 line-clamp-2 mt-0.5" title="@Color.Description">@Color.Description</p>
         </div>
     </div>
 
-    <!-- Copy Button -->
-    <button @onclick="CopyHex" class="w-full py-1.5 text-xs font-medium rounded-lg border border-neutral-200 dark:border-neutral-700 hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-colors flex items-center justify-center space-x-1.5">
-        <span>@(copied ? "✓ Copied Hex" : "Copy Hex Code")</span>
-    </button>
+    <div class="space-y-2">
+        <!-- Color Codes Breakdown -->
+        <div class="space-y-1 text-[11px] font-mono text-neutral-600 dark:text-neutral-400 pt-2 border-t border-neutral-100 dark:border-neutral-800/80">
+            <div class="flex justify-between">
+                <span class="text-neutral-400">RGB:</span>
+                <span>@Color.R, @Color.G, @Color.B</span>
+            </div>
+            <div class="flex justify-between">
+                <span class="text-neutral-400">CMYK:</span>
+                <span>@Color.Cyan, @Color.Magenta, @Color.Yellow, @Color.KeyBlack</span>
+            </div>
+        </div>
+
+        <!-- Copy Button -->
+        <button @onclick="CopyHex" class="w-full py-1.5 text-xs font-medium rounded-lg border border-neutral-200 dark:border-neutral-700 hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-colors flex items-center justify-center space-x-1.5 whitespace-nowrap">
+            <span class="truncate">@(copied ? "✓ Copied Hex" : "Copy Hex Code")</span>
+        </button>
+    </div>
 </div>
 
 @code {

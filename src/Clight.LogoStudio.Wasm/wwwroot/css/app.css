@@ -98,3 +98,63 @@ html.dark .nav-link.active svg,
 .dark .nav-link.active svg {
     color: #FFFFFF !important;
 }
+
+/* Line Clamping & Text Ellipsis Utilities */
+.line-clamp-1 {
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.line-clamp-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.line-clamp-3 {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.truncate {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/* Global Text Selection Disable (avoid messy selection highlights during interaction) */
+html, body {
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+}
+
+/* Allow selection explicitly where appropriate (code, inputs, values, copy boxes) */
+input,
+textarea,
+pre,
+code,
+.select-text,
+.select-all,
+[contenteditable="true"] {
+    user-select: text !important;
+    -webkit-user-select: text !important;
+    -moz-user-select: text !important;
+    -ms-user-select: text !important;
+}
+
+.select-all {
+    user-select: all !important;
+    -webkit-user-select: all !important;
+}
+
+

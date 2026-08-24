@@ -3,11 +3,11 @@
 <div class="rounded-2xl border border-neutral-200/80 dark:border-neutral-800 bg-white/70 dark:bg-neutral-900/70 backdrop-blur-sm p-5 space-y-4 shadow-sm">
     <!-- Card Header -->
     <div class="flex items-center justify-between">
-        <div>
-            <h4 class="text-sm font-semibold text-neutral-900 dark:text-white">@Title</h4>
-            <p class="text-xs text-neutral-400">@SubTitle</p>
+        <div class="truncate mr-2">
+            <h4 class="text-sm font-semibold text-neutral-900 dark:text-white truncate" title="@Title">@Title</h4>
+            <p class="text-xs text-neutral-400 truncate" title="@SubTitle">@SubTitle</p>
         </div>
-        <span class="text-[10px] font-mono font-medium px-2 py-0.5 rounded bg-neutral-100 dark:bg-neutral-800 text-neutral-500">
+        <span class="text-[10px] font-mono font-medium px-2 py-0.5 rounded bg-neutral-100 dark:bg-neutral-800 text-neutral-500 shrink-0">
             @Type.ToUpperInvariant()
         </span>
     </div>
