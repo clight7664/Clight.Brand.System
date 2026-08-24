@@ -9,52 +9,11 @@
     <!-- Meta & SEO -->
     <meta name="description" content="AI Native Logo Design System & Brand Asset Studio for Clight (月 · 兰 · C)." />
     <meta name="theme-color" content="#111111" />
-    
-    <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
-    
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            darkMode: 'class',
-            theme: {
-                extend: {
-                    fontFamily: {
-                        sans: ['Inter', 'Plus Jakarta Sans', 'system-ui', 'sans-serif'],
-                        serif: ['Cormorant Garamond', 'Georgia', 'serif']
-                    },
-                    colors: {
-                        ink: {
-                            DEFAULT: '#111111',
-                            50: '#F9F9F9',
-                            100: '#F2F2F2',
-                            200: '#E5E5E5',
-                            800: '#1F1F1F',
-                            900: '#111111'
-                        },
-                        paper: {
-                            DEFAULT: '#FAF9F6',
-                            warm: '#F5F2EB',
-                            dark: '#161616'
-                        },
-                        mist: '#E0E0E0',
-                        deep: '#444444'
-                    }
-                }
-            }
-        };
-    </script>
-    
-    <!-- App CSS -->
-    <link href="css/app.css" rel="stylesheet" />
     <link rel="icon" type="image/svg+xml" href="clight-logo.svg" />
     <link rel="manifest" href="manifest.json" />
     
-    <!-- JSZip for multi-asset packaging -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    <!-- Local Pre-bundled Stylesheet via Vite (Tailwind CSS, Fontsource Fonts, & App Styles) -->
+    <link rel="stylesheet" href="dist/app.min.css" />
 </head>
 <body class="h-full bg-[#FAF9F6] dark:bg-[#111111] text-neutral-900 dark:text-neutral-100 antialiased font-sans transition-colors duration-200 select-none">
     <div id="app" class="h-full">
@@ -70,8 +29,8 @@
         </div>
     </div>
 
-    <!-- Scripts -->
+    <!-- Local Pre-bundled JS via Vite (JSZip, JS Interop, Theme & Localization helpers) -->
+    <script src="dist/app.min.js"></script>
     <script src="_framework/blazor.webassembly.js"></script>
-    <script src="js/logoStudioInterop.js"></script>
 </body>
 </html>
