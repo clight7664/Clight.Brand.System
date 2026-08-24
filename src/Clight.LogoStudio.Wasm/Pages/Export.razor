@@ -2,22 +2,24 @@
 @inject IAssetGenerator AssetGenerator
 @inject ISvgLogoRenderer SvgRenderer
 @inject IJSRuntime JSRuntime
+@inject ILocalizationService I18n
+@implements IDisposable
 
 <div class="space-y-8 animate-fade-in">
     <!-- Header -->
     <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-            <h1 class="text-2xl font-bold tracking-tight text-neutral-900 dark:text-white">Brand Asset Export (资源导出)</h1>
-            <p class="text-xs text-neutral-500 mt-1">Export approved brand assets across vector SVGs, multi-resolution PNGs, and Windows ICO formats.</p>
+            <h1 class="text-2xl font-bold tracking-tight text-neutral-900 dark:text-white">@I18n["Export.Title"]</h1>
+            <p class="text-xs text-neutral-500 mt-1">@I18n["Export.Desc"]</p>
         </div>
 
         <div class="flex items-center space-x-2">
             <button @onclick="ExportSelected" disabled="@(selectedSizes.Count == 0 || isExporting)" class="px-4 py-2 text-xs font-semibold rounded-lg bg-neutral-900 text-white dark:bg-white dark:text-neutral-900 hover:bg-neutral-800 disabled:opacity-50 transition-all flex items-center space-x-1.5 shadow-sm">
                 <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" /></svg>
-                <span>Export Selected (@selectedSizes.Count)</span>
+                <span>@string.Format(I18n["Export.ExportSelected"], selectedSizes.Count)</span>
             </button>
             <button @onclick="ExportAll" disabled="@isExporting" class="px-4 py-2 text-xs font-semibold rounded-lg border border-neutral-300 dark:border-neutral-700 hover:bg-neutral-100 dark:hover:bg-neutral-800 text-neutral-800 dark:text-neutral-200 transition-colors">
-                Export All (ZIP)
+                @I18n["Export.ExportAllZip"]
             </button>
         </div>
     </div>
@@ -28,9 +30,9 @@
         <div class="lg:col-span-4 space-y-4">
             <div class="p-5 rounded-2xl border border-neutral-200/80 dark:border-neutral-800 bg-white/70 dark:bg-neutral-900/70 backdrop-blur-sm space-y-4 shadow-sm">
                 <div class="flex items-center justify-between border-b border-neutral-100 dark:border-neutral-800 pb-2">
-                    <h3 class="text-xs font-semibold uppercase tracking-wider text-neutral-400">PNG Sizes (像素规格)</h3>
+                    <h3 class="text-xs font-semibold uppercase tracking-wider text-neutral-400">@I18n["Export.PngSizes"]</h3>
                     <button @onclick="ToggleAllSizes" class="text-xs font-medium text-neutral-600 dark:text-neutral-400 hover:text-neutral-900">
-                        @(selectedSizes.Count == allSizes.Length ? "Deselect All" : "Select All")
+                        @(selectedSizes.Count == allSizes.Length ? I18n["Export.DeselectAll"] : I18n["Export.SelectAll"])
                     </button>
                 </div>
 
@@ -50,18 +52,18 @@
 
             <!-- Vector & ICO Quick Actions -->
             <div class="p-5 rounded-2xl border border-neutral-200/80 dark:border-neutral-800 bg-white/70 dark:bg-neutral-900/70 backdrop-blur-sm space-y-3">
-                <h3 class="text-xs font-semibold uppercase tracking-wider text-neutral-400">Direct Vector &amp; Icon Downloads</h3>
+                <h3 class="text-xs font-semibold uppercase tracking-wider text-neutral-400">@I18n["Export.DirectDownloads"]</h3>
                 <div class="space-y-2">
                     <button @onclick="DownloadSvgCanonical" class="w-full py-2 px-3 text-xs font-medium rounded-lg border border-neutral-200 dark:border-neutral-700 hover:bg-neutral-100 dark:hover:bg-neutral-800 flex items-center justify-between transition-colors">
-                        <span>clight-logo.svg (Black Vector)</span>
+                        <span>clight-logo.svg (.SVG Black)</span>
                         <svg class="w-3.5 h-3.5 text-neutral-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" /></svg>
                     </button>
                     <button @onclick="DownloadSvgWhiteTransparent" class="w-full py-2 px-3 text-xs font-medium rounded-lg bg-neutral-900 text-white dark:bg-white dark:text-neutral-900 hover:bg-neutral-800 dark:hover:bg-neutral-100 flex items-center justify-between transition-colors shadow-sm">
-                        <span>clight-logo-white.svg (White Transparent)</span>
+                        <span>clight-logo-white.svg (.SVG White)</span>
                         <svg class="w-3.5 h-3.5 text-neutral-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" /></svg>
                     </button>
                     <button @onclick="DownloadSvgWhite" class="w-full py-2 px-3 text-xs font-medium rounded-lg border border-neutral-200 dark:border-neutral-700 hover:bg-neutral-100 dark:hover:bg-neutral-800 flex items-center justify-between transition-colors">
-                        <span>clight-logo-dark.svg (White on Black)</span>
+                        <span>clight-logo-dark.svg (.SVG Dark BG)</span>
                         <svg class="w-3.5 h-3.5 text-neutral-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" /></svg>
                     </button>
                     <button @onclick="DownloadIco" class="w-full py-2 px-3 text-xs font-medium rounded-lg border border-neutral-200 dark:border-neutral-700 hover:bg-neutral-100 dark:hover:bg-neutral-800 flex items-center justify-between transition-colors">
@@ -77,8 +79,8 @@
             <div class="p-6 rounded-2xl border border-neutral-200/80 dark:border-neutral-800 bg-white/50 dark:bg-neutral-900/50 backdrop-blur-sm space-y-6 shadow-sm">
                 <div class="flex items-center justify-between">
                     <div>
-                        <h3 class="text-sm font-semibold text-neutral-900 dark:text-white">Export Canvas Gallery (导出资源预览)</h3>
-                        <p class="text-xs text-neutral-500">Visual preview of approved logo geometry scaled across target resolutions.</p>
+                        <h3 class="text-sm font-semibold text-neutral-900 dark:text-white">@I18n["Export.GalleryTitle"]</h3>
+                        <p class="text-xs text-neutral-500">@I18n["Export.GalleryDesc"]</p>
                     </div>
                     <span class="text-xs font-mono text-neutral-400">@selectedSizes.Count Sizes Selected</span>
                 </div>
@@ -96,7 +98,7 @@
                                 </div>
                             </div>
                             <button @onclick="() => DownloadSinglePng(size)" class="w-full py-1 text-[10px] font-mono rounded bg-neutral-100 dark:bg-neutral-800 hover:bg-neutral-200 dark:hover:bg-neutral-700 text-neutral-700 dark:text-neutral-300 transition-colors">
-                                Download
+                                @I18n["Common.Download"]
                             </button>
                         </div>
                     }
@@ -110,6 +112,11 @@
     private readonly int[] allSizes = [16, 32, 48, 64, 128, 180, 192, 256, 512, 1024];
     private HashSet<int> selectedSizes = [16, 32, 48, 64, 128, 180, 192, 256, 512, 1024];
     private bool isExporting = false;
+
+    protected override void OnInitialized()
+    {
+        I18n.OnLanguageChanged += StateHasChanged;
+    }
 
     private void ToggleSize(int size, bool check)
     {
@@ -219,5 +226,10 @@
     {
         string svg = SvgRenderer.RenderSvg(LogoParameters.CreateApproved());
         await JSRuntime.InvokeVoidAsync("logoStudio.renderSvgToPngAndDownload", svg, 32, 32, "favicon.ico", null);
+    }
+
+    public void Dispose()
+    {
+        I18n.OnLanguageChanged -= StateHasChanged;
     }
 }

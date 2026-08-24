@@ -9,6 +9,8 @@
 [![CI/CD GitHub Pages](https://github.com/clight7664/Clight.Brand.System/actions/workflows/deploy.yml/badge.svg)](https://github.com/clight7664/Clight.Brand.System/actions/workflows/deploy.yml)
 [![License](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
+**简体中文** | [**English**](README.en.md)
+
 ---
 
 ## 📖 项目概述 (Executive Summary)

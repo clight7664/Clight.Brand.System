@@ -35,10 +35,17 @@ public class GuidelineProviderTests
     [Fact]
     public void MarkdownDocuments_AreNonEmptyAndStructured()
     {
-        Assert.NotEmpty(_provider.GetLogoMarkdown());
-        Assert.NotEmpty(_provider.GetConstructionMarkdown());
-        Assert.NotEmpty(_provider.GetApplicationMarkdown());
-        Assert.NotEmpty(_provider.GetTypographyMarkdown());
-        Assert.NotEmpty(_provider.GetColorsMarkdown());
+        Assert.NotEmpty(_provider.GetLogoMarkdown("zh"));
+        Assert.NotEmpty(_provider.GetLogoMarkdown("en"));
+        Assert.NotEmpty(_provider.GetConstructionMarkdown("zh"));
+        Assert.NotEmpty(_provider.GetConstructionMarkdown("en"));
+        Assert.NotEmpty(_provider.GetApplicationMarkdown("zh"));
+        Assert.NotEmpty(_provider.GetApplicationMarkdown("en"));
+        Assert.NotEmpty(_provider.GetTypographyMarkdown("zh"));
+        Assert.NotEmpty(_provider.GetTypographyMarkdown("en"));
+        Assert.NotEmpty(_provider.GetColorsMarkdown("zh"));
+        Assert.NotEmpty(_provider.GetColorsMarkdown("en"));
+        Assert.NotEmpty(_provider.GetFullGuidelineMarkdown("zh"));
+        Assert.NotEmpty(_provider.GetFullGuidelineMarkdown("en"));
     }
 }

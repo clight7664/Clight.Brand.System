@@ -2,19 +2,27 @@
 @inject IGuidelineProvider GuidelineProvider
 @inject ISvgLogoRenderer SvgRenderer
 @inject IJSRuntime JSRuntime
+@inject ILocalizationService I18n
+@implements IDisposable
 
 <div class="space-y-8 animate-fade-in">
     <!-- Header -->
     <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-            <h1 class="text-2xl font-bold tracking-tight text-neutral-900 dark:text-white">Brand Guideline (品牌规范)</h1>
-            <p class="text-xs text-neutral-500 mt-1">Mathematical construction, clear space boundaries, minimum size thresholds, and governance standards.</p>
+            <h1 class="text-2xl font-bold tracking-tight text-neutral-900 dark:text-white">@I18n["Guideline.Title"]</h1>
+            <p class="text-xs text-neutral-500 mt-1">@I18n["Guideline.Desc"]</p>
         </div>
 
-        <button @onclick="DownloadGuidelinesMd" class="px-4 py-2 text-xs font-semibold rounded-lg bg-neutral-900 text-white dark:bg-white dark:text-neutral-900 hover:bg-neutral-800 transition-colors flex items-center space-x-1.5 shadow-sm">
-            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" /></svg>
-            <span>Download Guideline (.MD)</span>
-        </button>
+        <div class="flex items-center space-x-2">
+            <button @onclick='() => DownloadGuidelinesMd("zh")' class="px-3 py-2 text-xs font-semibold rounded-lg bg-neutral-900 text-white dark:bg-white dark:text-neutral-900 hover:bg-neutral-800 transition-colors flex items-center space-x-1.5 shadow-sm">
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" /></svg>
+                <span>@I18n["Guideline.DownloadMdZh"]</span>
+            </button>
+            <button @onclick='() => DownloadGuidelinesMd("en")' class="px-3 py-2 text-xs font-semibold rounded-lg border border-neutral-300 dark:border-neutral-700 hover:bg-neutral-100 dark:hover:bg-neutral-800 text-neutral-700 dark:text-neutral-300 transition-colors flex items-center space-x-1.5 shadow-sm">
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" /></svg>
+                <span>@I18n["Guideline.DownloadMdEn"]</span>
+            </button>
+        </div>
     </div>
 
     <!-- 4 Guideline Pillars Matrix -->
@@ -23,8 +31,8 @@
         <div class="p-6 rounded-2xl border border-neutral-200/80 dark:border-neutral-800 bg-white/70 dark:bg-neutral-900/70 backdrop-blur-sm space-y-4">
             <div class="flex items-center justify-between border-b border-neutral-100 dark:border-neutral-800 pb-2">
                 <div>
-                    <h3 class="text-sm font-semibold text-neutral-900 dark:text-white">Construction (构造)</h3>
-                    <p class="text-xs text-neutral-400">Golden ratio circles, tangent coordinates, and centerlines</p>
+                    <h3 class="text-sm font-semibold text-neutral-900 dark:text-white">@I18n["Guideline.ConstructionTitle"]</h3>
+                    <p class="text-xs text-neutral-400">@I18n["Guideline.ConstructionSub"]</p>
                 </div>
                 <span class="text-[10px] font-mono text-neutral-400">φ = 1.618</span>
             </div>
@@ -32,7 +40,7 @@
                 @((MarkupString)SvgRenderer.RenderConstructionSvg(LogoParameters.CreateApproved()))
             </div>
             <p class="text-xs text-neutral-500 leading-relaxed">
-                外圆半径 R_out = 220px，内圆半径 R_in = 209.5px，尖角开口 46°。两圆交汇自然形成渐变月牙形弧度。
+                @I18n["Guideline.ConstructionDesc"]
             </p>
         </div>
 
@@ -40,8 +48,8 @@
         <div class="p-6 rounded-2xl border border-neutral-200/80 dark:border-neutral-800 bg-white/70 dark:bg-neutral-900/70 backdrop-blur-sm space-y-4">
             <div class="flex items-center justify-between border-b border-neutral-100 dark:border-neutral-800 pb-2">
                 <div>
-                    <h3 class="text-sm font-semibold text-neutral-900 dark:text-white">Clear Space (安全空间)</h3>
-                    <p class="text-xs text-neutral-400">1X exclusion zone based on maximum crest thickness</p>
+                    <h3 class="text-sm font-semibold text-neutral-900 dark:text-white">@I18n["Guideline.ClearSpaceTitle"]</h3>
+                    <p class="text-xs text-neutral-400">@I18n["Guideline.ClearSpaceSub"]</p>
                 </div>
                 <span class="text-[10px] font-mono text-emerald-500 font-bold">1X RULE</span>
             </div>
@@ -49,7 +57,7 @@
                 @((MarkupString)SvgRenderer.RenderSafeAreaSvg(LogoParameters.CreateApproved()))
             </div>
             <p class="text-xs text-neutral-500 leading-relaxed">
-                保持标识周围至少 1X (42px) 的呼吸空间，严禁任何文字、图案或界线侵入安全留白区域。
+                @I18n["Guideline.ClearSpaceDesc"]
             </p>
         </div>
 
@@ -57,8 +65,8 @@
         <div class="p-6 rounded-2xl border border-neutral-200/80 dark:border-neutral-800 bg-white/70 dark:bg-neutral-900/70 backdrop-blur-sm space-y-4">
             <div class="flex items-center justify-between border-b border-neutral-100 dark:border-neutral-800 pb-2">
                 <div>
-                    <h3 class="text-sm font-semibold text-neutral-900 dark:text-white">Minimum Size (最小尺寸)</h3>
-                    <p class="text-xs text-neutral-400">Digital screen threshold and physical print limits</p>
+                    <h3 class="text-sm font-semibold text-neutral-900 dark:text-white">@I18n["Guideline.MinSizeTitle"]</h3>
+                    <p class="text-xs text-neutral-400">@I18n["Guideline.MinSizeSub"]</p>
                 </div>
                 <span class="text-[10px] font-mono text-neutral-400">16px / 5mm</span>
             </div>
@@ -85,7 +93,7 @@
                 </div>
             </div>
             <p class="text-xs text-neutral-500 leading-relaxed">
-                数字屏幕最小显示尺寸为 16×16 px，印刷介质最小高度为 5.0 mm，确保极细尖角的清晰还原。
+                @I18n["Guideline.MinSizeDesc"]
             </p>
         </div>
 
@@ -93,8 +101,8 @@
         <div class="p-6 rounded-2xl border border-neutral-200/80 dark:border-neutral-800 bg-white/70 dark:bg-neutral-900/70 backdrop-blur-sm space-y-4">
             <div class="flex items-center justify-between border-b border-neutral-100 dark:border-neutral-800 pb-2">
                 <div>
-                    <h3 class="text-sm font-semibold text-neutral-900 dark:text-white">Color Usage (色彩规范)</h3>
-                    <p class="text-xs text-neutral-400">Pure monochrome high contrast combinations</p>
+                    <h3 class="text-sm font-semibold text-neutral-900 dark:text-white">@I18n["Guideline.ColorUsageTitle"]</h3>
+                    <p class="text-xs text-neutral-400">@I18n["Guideline.ColorUsageSub"]</p>
                 </div>
                 <span class="text-[10px] font-mono text-neutral-400">WCAG AAA</span>
             </div>
@@ -113,21 +121,27 @@
                 </div>
             </div>
             <p class="text-xs text-neutral-500 leading-relaxed">
-                仅使用经审核的水墨黑 (#111111) 与纯白 (#FFFFFF)，严格杜绝非官方彩色、渐变或低对比度搭配。
+                @I18n["Guideline.ColorUsageDesc"]
             </p>
         </div>
     </div>
 </div>
 
 @code {
-    private async Task DownloadGuidelinesMd()
+    protected override void OnInitialized()
     {
-        string markdown = GuidelineProvider.GetLogoMarkdown() + "\n\n" +
-                          GuidelineProvider.GetConstructionMarkdown() + "\n\n" +
-                          GuidelineProvider.GetApplicationMarkdown() + "\n\n" +
-                          GuidelineProvider.GetTypographyMarkdown() + "\n\n" +
-                          GuidelineProvider.GetColorsMarkdown();
+        I18n.OnLanguageChanged += StateHasChanged;
+    }
 
-        await JSRuntime.InvokeVoidAsync("logoStudio.downloadTextFile", "Clight-Brand-Guidelines.md", markdown, "text/markdown;charset=utf-8");
+    private async Task DownloadGuidelinesMd(string lang)
+    {
+        string markdown = GuidelineProvider.GetFullGuidelineMarkdown(lang);
+        string filename = lang == "en" ? "Clight-Brand-Guidelines.en.md" : "Clight-Brand-Guidelines.zh.md";
+        await JSRuntime.InvokeVoidAsync("logoStudio.downloadTextFile", filename, markdown, "text/markdown;charset=utf-8");
+    }
+
+    public void Dispose()
+    {
+        I18n.OnLanguageChanged -= StateHasChanged;
     }
 }

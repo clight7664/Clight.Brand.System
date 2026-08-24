@@ -1,0 +1,19 @@
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+# Validate commit message against Conventional Commits regex pattern
+commit_msg_file="$1"
+commit_msg=$(head -n 1 "$commit_msg_file")
+
+pattern="^(feat|fix|docs|style|refactor|perf|test|build|ci|chore|revert)(\([a-z0-9_-]+\))?: .+$"
+
+if ! echo "$commit_msg" | grep -qE "$pattern"; then
+  echo "\n❌ [Husky Error]: Commit message format does not comply with Conventional Commits rules!\n"
+  echo "Expected format: <type>(<scope>): <subject>"
+  echo "Example:"
+  echo "  feat(i18n): add multi-language support (zh, en, ja, ko)"
+  echo "  fix(renderer): resolve blank preview on standard mode"
+  echo "  docs(readme): add bilingual documentation and guide\n"
+  echo "Allowed types: feat, fix, docs, style, refactor, perf, test, build, ci, chore, revert\n"
+  exit 1
+fi

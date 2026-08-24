@@ -1,0 +1,27 @@
+{
+  "name": "clight-brand-system",
+  "version": "1.0.0",
+  "description": "AI-Native Parametric Logo Design System & Brand Asset Studio (月 · 兰 · C)",
+  "scripts": {
+    "prepare": "husky install"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^19.0.0",
+    "@commitlint/config-conventional": "^19.0.0",
+    "husky": "^8.0.3"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/clight7664/Clight.Brand.System.git"
+  },
+  "keywords": [
+    "brand-system",
+    "logo-generator",
+    "blazor",
+    "wasm",
+    "svg",
+    "i18n"
+  ],
+  "author": "Clight Inc.",
+  "license": "MIT"
+}

@@ -1,28 +1,30 @@
 @page "/preview"
 @inject ISvgLogoRenderer SvgRenderer
 @inject IJSRuntime JSRuntime
+@inject ILocalizationService I18n
+@implements IDisposable
 
 <div class="space-y-8 animate-fade-in">
     <!-- Header -->
     <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-            <h1 class="text-2xl font-bold tracking-tight text-neutral-900 dark:text-white">Clight Logo Preview</h1>
-            <p class="text-xs text-neutral-500 mt-1">Preview your logo in different backgrounds, scales, and engineering contexts.</p>
+            <h1 class="text-2xl font-bold tracking-tight text-neutral-900 dark:text-white">@I18n["Preview.Title"]</h1>
+            <p class="text-xs text-neutral-500 mt-1">@I18n["Preview.Desc"]</p>
         </div>
 
         <!-- Background Theme Pills -->
         <div class="flex items-center p-1 rounded-xl bg-neutral-200/60 dark:bg-neutral-800 text-xs font-medium space-x-1">
             <button @onclick="() => selectedTheme = LogoTheme.Light" class="px-3 py-1.5 rounded-lg transition-colors @(selectedTheme == LogoTheme.Light ? "bg-white dark:bg-neutral-900 text-neutral-900 dark:text-white shadow-sm font-semibold" : "text-neutral-600 dark:text-neutral-400 hover:text-neutral-900")">
-                Light
+                @I18n["Preview.ThemeLight"]
             </button>
             <button @onclick="() => selectedTheme = LogoTheme.Dark" class="px-3 py-1.5 rounded-lg transition-colors @(selectedTheme == LogoTheme.Dark ? "bg-white dark:bg-neutral-900 text-neutral-900 dark:text-white shadow-sm font-semibold" : "text-neutral-600 dark:text-neutral-400 hover:text-neutral-900")">
-                Dark
+                @I18n["Preview.ThemeDark"]
             </button>
             <button @onclick="() => selectedTheme = LogoTheme.Transparent" class="px-3 py-1.5 rounded-lg transition-colors @(selectedTheme == LogoTheme.Transparent ? "bg-white dark:bg-neutral-900 text-neutral-900 dark:text-white shadow-sm font-semibold" : "text-neutral-600 dark:text-neutral-400 hover:text-neutral-900")">
-                Transparent
+                @I18n["Preview.ThemeTransparent"]
             </button>
             <button @onclick="() => selectedTheme = LogoTheme.Paper" class="px-3 py-1.5 rounded-lg transition-colors @(selectedTheme == LogoTheme.Paper ? "bg-white dark:bg-neutral-900 text-neutral-900 dark:text-white shadow-sm font-semibold" : "text-neutral-600 dark:text-neutral-400 hover:text-neutral-900")">
-                Paper
+                @I18n["Preview.ThemePaper"]
             </button>
         </div>
     </div>
@@ -52,18 +54,18 @@
             <!-- View Mode Bar -->
             <div class="flex flex-wrap items-center justify-between gap-2 p-3 rounded-xl bg-white/60 dark:bg-neutral-900/60 border border-neutral-200/60 dark:border-neutral-800 text-xs">
                 <div class="flex items-center space-x-2">
-                    <span class="text-neutral-400 font-medium">Layer:</span>
+                    <span class="text-neutral-400 font-medium">@I18n["Preview.LayerLabel"]</span>
                     <button @onclick='() => currentViewMode = "standard"' class="px-2.5 py-1 rounded-md transition-colors @(currentViewMode == "standard" ? "bg-neutral-900 text-white dark:bg-white dark:text-neutral-900 font-medium" : "hover:bg-neutral-200/50 dark:hover:bg-neutral-800 text-neutral-600 dark:text-neutral-400")">
-                        Standard
+                        @I18n["Preview.LayerStandard"]
                     </button>
                     <button @onclick='() => currentViewMode = "construction"' class="px-2.5 py-1 rounded-md transition-colors @(currentViewMode == "construction" ? "bg-sky-600 text-white font-medium" : "hover:bg-neutral-200/50 dark:hover:bg-neutral-800 text-neutral-600 dark:text-neutral-400")">
-                        Construction
+                        @I18n["Preview.LayerConstruction"]
                     </button>
                     <button @onclick='() => currentViewMode = "grid"' class="px-2.5 py-1 rounded-md transition-colors @(currentViewMode == "grid" ? "bg-neutral-800 text-white font-medium" : "hover:bg-neutral-200/50 dark:hover:bg-neutral-800 text-neutral-600 dark:text-neutral-400")">
-                        Grid
+                        @I18n["Preview.LayerGrid"]
                     </button>
                     <button @onclick='() => currentViewMode = "safe-area"' class="px-2.5 py-1 rounded-md transition-colors @(currentViewMode == "safe-area" ? "bg-emerald-600 text-white font-medium" : "hover:bg-neutral-200/50 dark:hover:bg-neutral-800 text-neutral-600 dark:text-neutral-400")">
-                        1X Safe Space
+                        @I18n["Preview.LayerSafeArea"]
                     </button>
                 </div>
                 <div class="text-[11px] font-mono text-neutral-400">
@@ -76,11 +78,11 @@
         <div class="space-y-4">
             <!-- Controls Card -->
             <div class="p-5 rounded-2xl border border-neutral-200/80 dark:border-neutral-800 bg-white/70 dark:bg-neutral-900/70 backdrop-blur-sm space-y-4 shadow-sm">
-                <h3 class="text-xs font-semibold uppercase tracking-wider text-neutral-400">Controls</h3>
+                <h3 class="text-xs font-semibold uppercase tracking-wider text-neutral-400">@I18n["Preview.ControlsTitle"]</h3>
                 
                 <div class="space-y-3 text-xs">
                     <div>
-                        <label class="block text-neutral-500 mb-1 font-medium">Export Format</label>
+                        <label class="block text-neutral-500 mb-1 font-medium">@I18n["Preview.ExportFormat"]</label>
                         <select @bind="selectedExportFormat" class="w-full p-2 rounded-lg bg-neutral-100 dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 text-neutral-900 dark:text-white">
                             <option value="PNG">PNG (Raster)</option>
                             <option value="SVG">SVG (Vector)</option>
@@ -89,7 +91,7 @@
                     </div>
 
                     <div>
-                        <label class="block text-neutral-500 mb-1 font-medium">Logo Resolution</label>
+                        <label class="block text-neutral-500 mb-1 font-medium">@I18n["Preview.LogoResolution"]</label>
                         <select @bind="selectedSize" class="w-full p-2 rounded-lg bg-neutral-100 dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 text-neutral-900 dark:text-white">
                             <option value="16">16×16 px</option>
                             <option value="32">32×32 px</option>
@@ -103,12 +105,12 @@
 
                     <div class="pt-2 space-y-2">
                         <button @onclick="ExportCurrent" class="w-full py-2.5 text-xs font-semibold text-white bg-neutral-900 dark:bg-white dark:text-neutral-900 rounded-lg hover:bg-neutral-800 dark:hover:bg-neutral-200 transition-colors shadow-sm">
-                            Export Current Configuration
+                            @I18n["Preview.ExportCurrent"]
                         </button>
                     </div>
 
                     <div class="p-3 rounded-lg bg-neutral-50 dark:bg-neutral-800/50 border border-neutral-200/50 dark:border-neutral-700/50 text-[11px] text-neutral-500 leading-relaxed">
-                        ⓘ All exports use the approved Clight logo geometry. The logo is a single fluid outer black curved line.
+                        @I18n["Preview.ExportNotice"]
                     </div>
                 </div>
             </div>
@@ -116,7 +118,7 @@
             <!-- Mini Favicon Preview Card -->
             <div class="p-4 rounded-2xl border border-neutral-200/80 dark:border-neutral-800 bg-white/70 dark:bg-neutral-900/70 backdrop-blur-sm space-y-2">
                 <div class="flex items-center justify-between text-xs">
-                    <span class="font-semibold text-neutral-900 dark:text-white">Favicon Preview</span>
+                    <span class="font-semibold text-neutral-900 dark:text-white">@I18n["Preview.FaviconPreviewTitle"]</span>
                     <span class="text-neutral-400 font-mono text-[10px]">32×32 • 16×16</span>
                 </div>
                 <div class="p-3 rounded-lg bg-neutral-100 dark:bg-neutral-950 flex items-center justify-center space-x-6 border border-neutral-200/50 dark:border-neutral-800">
@@ -142,7 +144,7 @@
             <!-- Mini App Icon Preview Card -->
             <div class="p-4 rounded-2xl border border-neutral-200/80 dark:border-neutral-800 bg-white/70 dark:bg-neutral-900/70 backdrop-blur-sm space-y-2">
                 <div class="flex items-center justify-between text-xs">
-                    <span class="font-semibold text-neutral-900 dark:text-white">App Icon Preview</span>
+                    <span class="font-semibold text-neutral-900 dark:text-white">@I18n["Preview.AppIconPreviewTitle"]</span>
                     <span class="text-neutral-400 font-mono text-[10px]">512×512 iOS</span>
                 </div>
                 <div class="p-3 rounded-lg bg-neutral-100 dark:bg-neutral-950 flex items-center justify-center space-x-4 border border-neutral-200/50 dark:border-neutral-800">
@@ -171,6 +173,11 @@
     private string selectedExportFormat = "PNG";
     private int selectedSize = 512;
 
+    protected override void OnInitialized()
+    {
+        I18n.OnLanguageChanged += StateHasChanged;
+    }
+
     private void ZoomIn() => zoomScale = Math.Min(3.0, zoomScale + 0.25);
     private void ZoomOut() => zoomScale = Math.Max(0.5, zoomScale - 0.25);
     private void ResetZoom() => zoomScale = 1.0;
@@ -186,5 +193,10 @@
         {
             await JSRuntime.InvokeVoidAsync("logoStudio.renderSvgToPngAndDownload", svg, selectedSize, selectedSize, $"clight-logo-{selectedSize}.png", null);
         }
+    }
+
+    public void Dispose()
+    {
+        I18n.OnLanguageChanged -= StateHasChanged;
     }
 }

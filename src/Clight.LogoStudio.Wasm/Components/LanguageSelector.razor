@@ -1,0 +1,46 @@
+@inject ILocalizationService I18n
+
+<div class="relative inline-block text-left" @onclick:stopPropagation="true">
+    <button @onclick="ToggleDropdown" class="flex items-center space-x-1.5 px-2.5 py-1.5 rounded-lg border border-neutral-200/80 dark:border-neutral-800 bg-white/60 dark:bg-neutral-900/60 hover:bg-neutral-100 dark:hover:bg-neutral-800 text-neutral-700 dark:text-neutral-300 text-xs font-medium transition-colors shadow-sm" title="@I18n["Common.Language"]">
+        <span class="text-sm">@CurrentFlag</span>
+        <span class="font-medium hidden sm:inline">@CurrentNativeName</span>
+        <svg class="w-3 h-3 text-neutral-400 transition-transform duration-150 @(isOpen ? "rotate-180" : "")" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+        </svg>
+    </button>
+
+    @if (isOpen)
+    {
+        <div class="absolute right-0 bottom-full mb-2 w-36 rounded-xl border border-neutral-200/90 dark:border-neutral-800 bg-white dark:bg-neutral-900 shadow-xl py-1 z-50 animate-fade-in backdrop-blur-md">
+            @foreach (var lang in I18n.SupportedLanguages)
+            {
+                bool isSelected = lang.Code == I18n.CurrentLanguage;
+                <button @onclick="() => SelectLanguage(lang.Code)" class="w-full text-left px-3 py-1.5 text-xs flex items-center justify-between hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-colors @(isSelected ? "font-semibold text-neutral-950 dark:text-white bg-neutral-50 dark:bg-neutral-800/50" : "text-neutral-600 dark:text-neutral-400")">
+                    <div class="flex items-center space-x-2">
+                        <span>@lang.Flag</span>
+                        <span>@lang.NativeName</span>
+                    </div>
+                    @if (isSelected)
+                    {
+                        <span class="text-emerald-500 font-bold">✓</span>
+                    }
+                </button>
+            }
+        </div>
+    }
+</div>
+
+@code {
+    private bool isOpen = false;
+
+    private string CurrentFlag => I18n.SupportedLanguages.FirstOrDefault(l => l.Code == I18n.CurrentLanguage).Flag ?? "🌐";
+    private string CurrentNativeName => I18n.SupportedLanguages.FirstOrDefault(l => l.Code == I18n.CurrentLanguage).NativeName ?? "Language";
+
+    private void ToggleDropdown() => isOpen = !isOpen;
+
+    private async Task SelectLanguage(string code)
+    {
+        isOpen = false;
+        await I18n.SetLanguageAsync(code);
+    }
+}

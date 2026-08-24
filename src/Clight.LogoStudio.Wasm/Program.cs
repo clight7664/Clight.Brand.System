@@ -5,6 +5,8 @@ using Clight.Logo.Core.Services;
 using Clight.Logo.Renderer.Services;
 using Clight.Asset.Generator.Services;
 using Clight.Brand.Guideline.Services;
+using Clight.LogoStudio.Wasm.Services;
+
 
 var builder = WebAssemblyHostBuilder.CreateDefault(args);
 builder.RootComponents.Add<App>("#app");
@@ -17,5 +19,6 @@ builder.Services.AddSingleton<ILogoCalculator, LogoCalculator>();
 builder.Services.AddSingleton<ISvgLogoRenderer, SvgLogoRenderer>();
 builder.Services.AddSingleton<IAssetGenerator, AssetGenerator>();
 builder.Services.AddSingleton<IGuidelineProvider, GuidelineProvider>();
+builder.Services.AddScoped<ILocalizationService, LocalizationService>();
 
 await builder.Build().RunAsync();

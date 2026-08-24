@@ -1,5 +1,7 @@
 @inherits LayoutComponentBase
 @inject IJSRuntime JSRuntime
+@inject ILocalizationService I18n
+@implements IDisposable
 
 <div class="min-h-screen flex flex-col md:flex-row bg-[#FAF9F6] dark:bg-[#111111] text-neutral-900 dark:text-neutral-100 antialiased font-sans transition-colors duration-200">
     <!-- Sidebar -->
@@ -19,17 +21,20 @@
                     </div>
                 </a>
 
-                <!-- Mobile theme switch -->
-                <button @onclick="ToggleTheme" class="md:hidden p-2 rounded-lg text-neutral-500 hover:bg-neutral-100 dark:hover:bg-neutral-800" aria-label="Toggle Theme">
-                    @if (isDark)
-                    {
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" /></svg>
-                    }
-                    else
-                    {
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" /></svg>
-                    }
-                </button>
+                <!-- Mobile controls (Language + Theme) -->
+                <div class="flex items-center space-x-1.5 md:hidden">
+                    <LanguageSelector />
+                    <button @onclick="ToggleTheme" class="p-2 rounded-lg text-neutral-500 hover:bg-neutral-100 dark:hover:bg-neutral-800" aria-label="Toggle Theme">
+                        @if (isDark)
+                        {
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" /></svg>
+                        }
+                        else
+                        {
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" /></svg>
+                        }
+                    </button>
+                </div>
             </div>
 
             <!-- Navigation Links -->
@@ -41,22 +46,25 @@
             <div class="flex items-center justify-between">
                 <div class="flex items-center space-x-2">
                     <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-                    <span class="text-xs font-medium text-neutral-500 dark:text-neutral-400">Brand System v1.0</span>
+                    <span class="text-xs font-medium text-neutral-500 dark:text-neutral-400">@I18n["Common.BrandSystemVersion"]</span>
                 </div>
-                <!-- Desktop theme switch -->
-                <button @onclick="ToggleTheme" class="hidden md:flex p-2 rounded-lg text-neutral-500 hover:text-neutral-900 dark:hover:text-white hover:bg-neutral-200/50 dark:hover:bg-neutral-800 transition-colors" title="Toggle Theme">
-                    @if (isDark)
-                    {
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" /></svg>
-                    }
-                    else
-                    {
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" /></svg>
-                    }
-                </button>
+                <!-- Desktop controls (Language + Theme) -->
+                <div class="hidden md:flex items-center space-x-1.5">
+                    <LanguageSelector />
+                    <button @onclick="ToggleTheme" class="p-1.5 rounded-lg text-neutral-500 hover:text-neutral-900 dark:hover:text-white hover:bg-neutral-200/50 dark:hover:bg-neutral-800 transition-colors" title="@I18n["Common.ThemeToggle"]">
+                        @if (isDark)
+                        {
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" /></svg>
+                        }
+                        else
+                        {
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" /></svg>
+                        }
+                    </button>
+                </div>
             </div>
             <div class="mt-2 text-[11px] text-neutral-400 font-serif italic">
-                月 · 兰 · C — Reflection &amp; Harmony
+                @I18n["Common.Motto"]
             </div>
         </div>
     </aside>
@@ -72,10 +80,16 @@
 @code {
     private bool isDark = false;
 
+    protected override async Task OnInitializedAsync()
+    {
+        I18n.OnLanguageChanged += StateHasChanged;
+    }
+
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         if (firstRender)
         {
+            await I18n.InitializeAsync();
             var theme = await JSRuntime.InvokeAsync<string>("logoStudio.getTheme");
             isDark = theme == "dark";
             await JSRuntime.InvokeVoidAsync("logoStudio.setTheme", isDark ? "dark" : "light");
@@ -87,5 +101,10 @@
     {
         isDark = !isDark;
         await JSRuntime.InvokeVoidAsync("logoStudio.setTheme", isDark ? "dark" : "light");
+    }
+
+    public void Dispose()
+    {
+        I18n.OnLanguageChanged -= StateHasChanged;
     }
 }

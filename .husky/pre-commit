@@ -1,0 +1,5 @@
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+echo "🧪 [Husky Pre-commit]: Running .NET test suite..."
+dotnet test tests/Clight.Brand.Tests/Clight.Brand.Tests.csproj --verbosity minimal

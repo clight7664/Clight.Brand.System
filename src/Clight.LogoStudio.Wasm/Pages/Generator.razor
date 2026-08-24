@@ -2,22 +2,24 @@
 @inject ILogoCalculator Calculator
 @inject ISvgLogoRenderer SvgRenderer
 @inject IJSRuntime JSRuntime
+@inject ILocalizationService I18n
+@implements IDisposable
 
 <div class="space-y-8 animate-fade-in">
     <!-- Header -->
     <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-            <h1 class="text-2xl font-bold tracking-tight text-neutral-900 dark:text-white">Logo Generator (生成器)</h1>
-            <p class="text-xs text-neutral-500 mt-1">Customize your logo parameters: curve curvature, outer radius, stroke width, and golden ratio harmony.</p>
+            <h1 class="text-2xl font-bold tracking-tight text-neutral-900 dark:text-white">@I18n["Generator.Title"]</h1>
+            <p class="text-xs text-neutral-500 mt-1">@I18n["Generator.Desc"]</p>
         </div>
 
         <div class="flex items-center space-x-2">
             <button @onclick="ResetToApproved" class="px-3 py-1.5 text-xs font-medium rounded-lg border border-neutral-300 dark:border-neutral-700 hover:bg-neutral-100 dark:hover:bg-neutral-800 text-neutral-700 dark:text-neutral-300 transition-colors">
-                Reset Approved
+                @I18n["Generator.ResetApproved"]
             </button>
             <button @onclick="CopySvgPath" class="px-3 py-1.5 text-xs font-semibold rounded-lg bg-neutral-900 text-white dark:bg-white dark:text-neutral-900 hover:bg-neutral-800 transition-colors flex items-center space-x-1.5">
                 <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3" /></svg>
-                <span>@(isCopied ? "✓ Path Copied" : "Copy SVG Path")</span>
+                <span>@(isCopied ? I18n["Generator.Copied"] : I18n["Generator.CopySvgPath"])</span>
             </button>
         </div>
     </div>
@@ -29,17 +31,17 @@
             <!-- Curve Parameters Section -->
             <div class="p-5 rounded-2xl border border-neutral-200/80 dark:border-neutral-800 bg-white/70 dark:bg-neutral-900/70 backdrop-blur-sm space-y-4">
                 <div class="flex items-center justify-between border-b border-neutral-100 dark:border-neutral-800 pb-2">
-                    <h3 class="text-xs font-semibold uppercase tracking-wider text-neutral-400">Curve Geometry (曲线几何)</h3>
+                    <h3 class="text-xs font-semibold uppercase tracking-wider text-neutral-400">@I18n["Generator.CurveGeometry"]</h3>
                     <label class="flex items-center space-x-1.5 text-xs cursor-pointer">
                         <input type="checkbox" @bind="paramsModel.UseGoldenRatio" @bind:after="OnParamChanged" class="rounded text-amber-500 focus:ring-amber-400" />
-                        <span class="text-neutral-700 dark:text-neutral-300 font-medium">φ Lock (1.618)</span>
+                        <span class="text-neutral-700 dark:text-neutral-300 font-medium">@I18n["Generator.PhiLock"]</span>
                     </label>
                 </div>
 
                 <!-- Outer Radius -->
                 <div class="space-y-1">
                     <div class="flex justify-between text-xs">
-                        <span class="text-neutral-600 dark:text-neutral-400">Outer Radius (外半径 R_out)</span>
+                        <span class="text-neutral-600 dark:text-neutral-400">@I18n["Generator.OuterRadius"]</span>
                         <span class="font-mono font-medium text-neutral-900 dark:text-white">@paramsModel.OuterRadius.ToString("F0") px</span>
                     </div>
                     <input type="range" min="100" max="250" step="1" @bind="paramsModel.OuterRadius" @bind:after="OnParamChanged" class="w-full h-1.5 bg-neutral-200 dark:bg-neutral-700 rounded-lg appearance-none cursor-pointer accent-neutral-900 dark:accent-white" />
@@ -48,7 +50,7 @@
                 <!-- Stroke Width / Crest Thickness -->
                 <div class="space-y-1">
                     <div class="flex justify-between text-xs">
-                        <span class="text-neutral-600 dark:text-neutral-400">Stroke Width (峰值厚度 W)</span>
+                        <span class="text-neutral-600 dark:text-neutral-400">@I18n["Generator.StrokeWidth"]</span>
                         <span class="font-mono font-medium text-neutral-900 dark:text-white">@paramsModel.StrokeWidth.ToString("F0") px</span>
                     </div>
                     <input type="range" min="6" max="70" step="1" @bind="paramsModel.StrokeWidth" @bind:after="OnParamChanged" class="w-full h-1.5 bg-neutral-200 dark:bg-neutral-700 rounded-lg appearance-none cursor-pointer accent-neutral-900 dark:accent-white" />
@@ -57,7 +59,7 @@
                 <!-- Tip Opening Angle -->
                 <div class="space-y-1">
                     <div class="flex justify-between text-xs">
-                        <span class="text-neutral-600 dark:text-neutral-400">Tip Angle (开口尖角 α)</span>
+                        <span class="text-neutral-600 dark:text-neutral-400">@I18n["Generator.TipAngle"]</span>
                         <span class="font-mono font-medium text-neutral-900 dark:text-white">@paramsModel.TipAngleDegrees.ToString("F0")°</span>
                     </div>
                     <input type="range" min="20" max="75" step="1" @bind="paramsModel.TipAngleDegrees" @bind:after="OnParamChanged" class="w-full h-1.5 bg-neutral-200 dark:bg-neutral-700 rounded-lg appearance-none cursor-pointer accent-neutral-900 dark:accent-white" />
@@ -66,35 +68,35 @@
 
             <!-- Weight Presets Section -->
             <div class="p-5 rounded-2xl border border-neutral-200/80 dark:border-neutral-800 bg-white/70 dark:bg-neutral-900/70 backdrop-blur-sm space-y-3">
-                <h3 class="text-xs font-semibold uppercase tracking-wider text-neutral-400">Weight Presets (粗细预设)</h3>
+                <h3 class="text-xs font-semibold uppercase tracking-wider text-neutral-400">@I18n["Generator.WeightPresets"]</h3>
                 <div class="grid grid-cols-3 gap-2">
                     <button @onclick="() => SetPreset(WeightPreset.Thin)" class="py-2 px-3 rounded-xl border transition-all text-xs font-medium @(paramsModel.Weight == WeightPreset.Thin ? "border-neutral-900 dark:border-white bg-neutral-900 dark:bg-white text-white dark:text-neutral-900 shadow-sm" : "border-neutral-200 dark:border-neutral-800 hover:bg-neutral-100 dark:hover:bg-neutral-800 text-neutral-700 dark:text-neutral-300")">
-                        Thin (16px)
+                        @I18n["Generator.WeightThin"]
                     </button>
                     <button @onclick="() => SetPreset(WeightPreset.Regular)" class="py-2 px-3 rounded-xl border transition-all text-xs font-medium @(paramsModel.Weight == WeightPreset.Regular ? "border-neutral-900 dark:border-white bg-neutral-900 dark:bg-white text-white dark:text-neutral-900 shadow-sm" : "border-neutral-200 dark:border-neutral-800 hover:bg-neutral-100 dark:hover:bg-neutral-800 text-neutral-700 dark:text-neutral-300")">
-                        Regular (26px)
+                        @I18n["Generator.WeightRegular"]
                     </button>
                     <button @onclick="() => SetPreset(WeightPreset.Bold)" class="py-2 px-3 rounded-xl border transition-all text-xs font-medium @(paramsModel.Weight == WeightPreset.Bold ? "border-neutral-900 dark:border-white bg-neutral-900 dark:bg-white text-white dark:text-neutral-900 shadow-sm" : "border-neutral-200 dark:border-neutral-800 hover:bg-neutral-100 dark:hover:bg-neutral-800 text-neutral-700 dark:text-neutral-300")">
-                        Bold (42px)
+                        @I18n["Generator.WeightBold"]
                     </button>
                 </div>
             </div>
 
             <!-- Position & Symmetry Section -->
             <div class="p-5 rounded-2xl border border-neutral-200/80 dark:border-neutral-800 bg-white/70 dark:bg-neutral-900/70 backdrop-blur-sm space-y-4">
-                <h3 class="text-xs font-semibold uppercase tracking-wider text-neutral-400">Position &amp; Symmetry (对称与偏移)</h3>
+                <h3 class="text-xs font-semibold uppercase tracking-wider text-neutral-400">@I18n["Generator.PositionSymmetry"]</h3>
 
                 <div class="grid grid-cols-2 gap-3 text-xs">
                     <div>
                         <div class="flex justify-between text-[11px] text-neutral-500 mb-1">
-                            <span>X Offset</span>
+                            <span>@I18n["Generator.XOffset"]</span>
                             <span class="font-mono">@paramsModel.CenterOffsetX px</span>
                         </div>
                         <input type="range" min="-40" max="40" step="1" @bind="paramsModel.CenterOffsetX" @bind:after="OnParamChanged" class="w-full h-1.5 bg-neutral-200 dark:bg-neutral-700 rounded-lg appearance-none cursor-pointer accent-neutral-900 dark:accent-white" />
                     </div>
                     <div>
                         <div class="flex justify-between text-[11px] text-neutral-500 mb-1">
-                            <span>Y Offset</span>
+                            <span>@I18n["Generator.YOffset"]</span>
                             <span class="font-mono">@paramsModel.CenterOffsetY px</span>
                         </div>
                         <input type="range" min="-40" max="40" step="1" @bind="paramsModel.CenterOffsetY" @bind:after="OnParamChanged" class="w-full h-1.5 bg-neutral-200 dark:bg-neutral-700 rounded-lg appearance-none cursor-pointer accent-neutral-900 dark:accent-white" />
@@ -104,11 +106,11 @@
                 <div class="flex items-center justify-between pt-2 border-t border-neutral-100 dark:border-neutral-800">
                     <label class="flex items-center space-x-2 text-xs cursor-pointer">
                         <input type="checkbox" @bind="paramsModel.MirrorVertical" @bind:after="OnParamChanged" class="rounded text-neutral-900 dark:text-white" />
-                        <span class="text-neutral-700 dark:text-neutral-300">Mirror Vertical (垂直翻转)</span>
+                        <span class="text-neutral-700 dark:text-neutral-300">@I18n["Generator.MirrorVertical"]</span>
                     </label>
                     <label class="flex items-center space-x-2 text-xs cursor-pointer">
                         <input type="checkbox" @bind="paramsModel.MirrorHorizontal" @bind:after="OnParamChanged" class="rounded text-neutral-900 dark:text-white" />
-                        <span class="text-neutral-700 dark:text-neutral-300">Mirror Horizontal (水平翻转)</span>
+                        <span class="text-neutral-700 dark:text-neutral-300">@I18n["Generator.MirrorHorizontal"]</span>
                     </label>
                 </div>
             </div>
@@ -124,7 +126,7 @@
             <!-- Mathematical Path Inspector -->
             <div class="p-4 rounded-xl border border-neutral-200/80 dark:border-neutral-800 bg-neutral-900 text-neutral-100 font-mono text-xs space-y-2">
                 <div class="flex items-center justify-between text-[11px] text-neutral-400">
-                    <span>Generated SVG Path Output (d attribute)</span>
+                    <span>@I18n["Generator.GeneratedPathOutput"]</span>
                     <span class="text-emerald-400">R_in: @computedGeometry.InnerRadius.ToString("F2")px</span>
                 </div>
                 <div class="p-2.5 rounded bg-neutral-950 text-neutral-300 break-all select-all leading-relaxed text-[11px]">
@@ -146,6 +148,7 @@
 
     protected override void OnInitialized()
     {
+        I18n.OnLanguageChanged += StateHasChanged;
         OnParamChanged();
     }
 
@@ -174,5 +177,10 @@
         await Task.Delay(1500);
         isCopied = false;
         StateHasChanged();
+    }
+
+    public void Dispose()
+    {
+        I18n.OnLanguageChanged -= StateHasChanged;
     }
 }

@@ -204,5 +204,14 @@ window.logoStudio = {
 
     getTheme: function () {
         return localStorage.getItem('clight_theme') || 'light';
+    },
+
+    // Language preference
+    setLanguage: function (lang) {
+        localStorage.setItem('clight_lang', lang);
+    },
+
+    getLanguage: function () {
+        return localStorage.getItem('clight_lang') || 'zh';
     }
 };
