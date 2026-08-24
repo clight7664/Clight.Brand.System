@@ -1,0 +1,133 @@
+@page "/guideline"
+@inject IGuidelineProvider GuidelineProvider
+@inject ISvgLogoRenderer SvgRenderer
+@inject IJSRuntime JSRuntime
+
+<div class="space-y-8 animate-fade-in">
+    <!-- Header -->
+    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div>
+            <h1 class="text-2xl font-bold tracking-tight text-neutral-900 dark:text-white">Brand Guideline (品牌规范)</h1>
+            <p class="text-xs text-neutral-500 mt-1">Mathematical construction, clear space boundaries, minimum size thresholds, and governance standards.</p>
+        </div>
+
+        <button @onclick="DownloadGuidelinesMd" class="px-4 py-2 text-xs font-semibold rounded-lg bg-neutral-900 text-white dark:bg-white dark:text-neutral-900 hover:bg-neutral-800 transition-colors flex items-center space-x-1.5 shadow-sm">
+            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" /></svg>
+            <span>Download Guideline (.MD)</span>
+        </button>
+    </div>
+
+    <!-- 4 Guideline Pillars Matrix -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <!-- 1. Construction Diagram Card -->
+        <div class="p-6 rounded-2xl border border-neutral-200/80 dark:border-neutral-800 bg-white/70 dark:bg-neutral-900/70 backdrop-blur-sm space-y-4">
+            <div class="flex items-center justify-between border-b border-neutral-100 dark:border-neutral-800 pb-2">
+                <div>
+                    <h3 class="text-sm font-semibold text-neutral-900 dark:text-white">Construction (构造)</h3>
+                    <p class="text-xs text-neutral-400">Golden ratio circles, tangent coordinates, and centerlines</p>
+                </div>
+                <span class="text-[10px] font-mono text-neutral-400">φ = 1.618</span>
+            </div>
+            <div class="w-full aspect-square max-h-[320px] rounded-xl bg-[#FAF9F6] border border-neutral-200 p-2 flex items-center justify-center">
+                @((MarkupString)SvgRenderer.RenderConstructionSvg(LogoParameters.CreateApproved()))
+            </div>
+            <p class="text-xs text-neutral-500 leading-relaxed">
+                外圆半径 R_out = 220px，内圆半径 R_in = 209.5px，尖角开口 46°。两圆交汇自然形成渐变月牙形弧度。
+            </p>
+        </div>
+
+        <!-- 2. Clear Space Card -->
+        <div class="p-6 rounded-2xl border border-neutral-200/80 dark:border-neutral-800 bg-white/70 dark:bg-neutral-900/70 backdrop-blur-sm space-y-4">
+            <div class="flex items-center justify-between border-b border-neutral-100 dark:border-neutral-800 pb-2">
+                <div>
+                    <h3 class="text-sm font-semibold text-neutral-900 dark:text-white">Clear Space (安全空间)</h3>
+                    <p class="text-xs text-neutral-400">1X exclusion zone based on maximum crest thickness</p>
+                </div>
+                <span class="text-[10px] font-mono text-emerald-500 font-bold">1X RULE</span>
+            </div>
+            <div class="w-full aspect-square max-h-[320px] rounded-xl bg-[#FAF9F6] border border-neutral-200 p-2 flex items-center justify-center">
+                @((MarkupString)SvgRenderer.RenderSafeAreaSvg(LogoParameters.CreateApproved()))
+            </div>
+            <p class="text-xs text-neutral-500 leading-relaxed">
+                保持标识周围至少 1X (42px) 的呼吸空间，严禁任何文字、图案或界线侵入安全留白区域。
+            </p>
+        </div>
+
+        <!-- 3. Minimum Size Card -->
+        <div class="p-6 rounded-2xl border border-neutral-200/80 dark:border-neutral-800 bg-white/70 dark:bg-neutral-900/70 backdrop-blur-sm space-y-4">
+            <div class="flex items-center justify-between border-b border-neutral-100 dark:border-neutral-800 pb-2">
+                <div>
+                    <h3 class="text-sm font-semibold text-neutral-900 dark:text-white">Minimum Size (最小尺寸)</h3>
+                    <p class="text-xs text-neutral-400">Digital screen threshold and physical print limits</p>
+                </div>
+                <span class="text-[10px] font-mono text-neutral-400">16px / 5mm</span>
+            </div>
+            <div class="w-full aspect-square max-h-[320px] rounded-xl bg-[#FAF9F6] dark:bg-[#161616] border border-neutral-200 dark:border-neutral-800 p-6 flex flex-col items-center justify-center space-y-6">
+                <div class="flex items-center space-x-8 text-neutral-900 dark:text-white">
+                    <div class="flex flex-col items-center space-y-2">
+                        <div class="w-4 h-4 bg-white dark:bg-neutral-900 p-0.5 rounded shadow-sm flex items-center justify-center border border-neutral-200 dark:border-neutral-800">
+                            @((MarkupString)SvgRenderer.RenderSvg(LogoParameters.CreateApproved(), new SvgRenderOptions { Responsive = true, FillColor = "currentColor" }))
+                        </div>
+                        <span class="text-[10px] font-mono text-neutral-500">16px (Favicon)</span>
+                    </div>
+                    <div class="flex flex-col items-center space-y-2">
+                        <div class="w-8 h-8 bg-white dark:bg-neutral-900 p-1 rounded shadow-sm flex items-center justify-center border border-neutral-200 dark:border-neutral-800">
+                            @((MarkupString)SvgRenderer.RenderSvg(LogoParameters.CreateApproved(), new SvgRenderOptions { Responsive = true, FillColor = "currentColor" }))
+                        </div>
+                        <span class="text-[10px] font-mono text-neutral-500">32px (App Icon)</span>
+                    </div>
+                    <div class="flex flex-col items-center space-y-2">
+                        <div class="w-16 h-16 bg-white dark:bg-neutral-900 p-2 rounded shadow-sm flex items-center justify-center border border-neutral-200 dark:border-neutral-800">
+                            @((MarkupString)SvgRenderer.RenderSvg(LogoParameters.CreateApproved(), new SvgRenderOptions { Responsive = true, FillColor = "currentColor" }))
+                        </div>
+                        <span class="text-[10px] font-mono text-neutral-500">64px (Desktop)</span>
+                    </div>
+                </div>
+            </div>
+            <p class="text-xs text-neutral-500 leading-relaxed">
+                数字屏幕最小显示尺寸为 16×16 px，印刷介质最小高度为 5.0 mm，确保极细尖角的清晰还原。
+            </p>
+        </div>
+
+        <!-- 4. Color Usage Card -->
+        <div class="p-6 rounded-2xl border border-neutral-200/80 dark:border-neutral-800 bg-white/70 dark:bg-neutral-900/70 backdrop-blur-sm space-y-4">
+            <div class="flex items-center justify-between border-b border-neutral-100 dark:border-neutral-800 pb-2">
+                <div>
+                    <h3 class="text-sm font-semibold text-neutral-900 dark:text-white">Color Usage (色彩规范)</h3>
+                    <p class="text-xs text-neutral-400">Pure monochrome high contrast combinations</p>
+                </div>
+                <span class="text-[10px] font-mono text-neutral-400">WCAG AAA</span>
+            </div>
+            <div class="w-full aspect-square max-h-[320px] rounded-xl border border-neutral-200 overflow-hidden grid grid-cols-2">
+                <div class="bg-[#FAF9F6] p-6 flex flex-col items-center justify-center space-y-3">
+                    <div class="w-16 h-16">
+                        @((MarkupString)SvgRenderer.RenderSvg(LogoParameters.CreateApproved(), new SvgRenderOptions { Responsive = true, FillColor = "#111111" }))
+                    </div>
+                    <span class="text-[10px] font-mono text-neutral-500">Black on Light</span>
+                </div>
+                <div class="bg-[#111111] p-6 flex flex-col items-center justify-center space-y-3">
+                    <div class="w-16 h-16">
+                        @((MarkupString)SvgRenderer.RenderSvg(LogoParameters.CreateApproved(), new SvgRenderOptions { Responsive = true, FillColor = "#FFFFFF" }))
+                    </div>
+                    <span class="text-[10px] font-mono text-neutral-400">White on Dark</span>
+                </div>
+            </div>
+            <p class="text-xs text-neutral-500 leading-relaxed">
+                仅使用经审核的水墨黑 (#111111) 与纯白 (#FFFFFF)，严格杜绝非官方彩色、渐变或低对比度搭配。
+            </p>
+        </div>
+    </div>
+</div>
+
+@code {
+    private async Task DownloadGuidelinesMd()
+    {
+        string markdown = GuidelineProvider.GetLogoMarkdown() + "\n\n" +
+                          GuidelineProvider.GetConstructionMarkdown() + "\n\n" +
+                          GuidelineProvider.GetApplicationMarkdown() + "\n\n" +
+                          GuidelineProvider.GetTypographyMarkdown() + "\n\n" +
+                          GuidelineProvider.GetColorsMarkdown();
+
+        await JSRuntime.InvokeVoidAsync("logoStudio.downloadTextFile", "Clight-Brand-Guidelines.md", markdown, "text/markdown;charset=utf-8");
+    }
+}

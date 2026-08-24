@@ -1,0 +1,11 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <Description>Production-grade asset generator for multi-resolution SVG, PNG, ICO, Favicon, and Web Manifest assets.</Description>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Clight.Logo.Core\Clight.Logo.Core.csproj" />
+    <ProjectReference Include="..\Clight.Logo.Renderer\Clight.Logo.Renderer.csproj" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="8.0.0" />
+    <PackageReference Include="System.Text.Json" Version="8.0.5" />
+  </ItemGroup>
+</Project>

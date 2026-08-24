@@ -1,0 +1,59 @@
+@page "/applications"
+
+<div class="space-y-8 animate-fade-in">
+    <!-- Header -->
+    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div>
+            <h1 class="text-2xl font-bold tracking-tight text-neutral-900 dark:text-white">Application Board (应用场景展示)</h1>
+            <p class="text-xs text-neutral-500 mt-1">Real-world design mockups across web, operating systems, documentation, and brand stationery.</p>
+        </div>
+
+        <!-- Filter Tabs -->
+        <div class="flex items-center p-1 rounded-xl bg-neutral-200/60 dark:bg-neutral-800 text-xs font-medium space-x-1">
+            <button @onclick='() => activeCategory = "all"' class="px-3 py-1.5 rounded-lg transition-colors @(activeCategory == "all" ? "bg-white dark:bg-neutral-900 text-neutral-900 dark:text-white shadow-sm font-semibold" : "text-neutral-600 dark:text-neutral-400 hover:text-neutral-900")">
+                All
+            </button>
+            <button @onclick='() => activeCategory = "web"' class="px-3 py-1.5 rounded-lg transition-colors @(activeCategory == "web" ? "bg-white dark:bg-neutral-900 text-neutral-900 dark:text-white shadow-sm font-semibold" : "text-neutral-600 dark:text-neutral-400 hover:text-neutral-900")">
+                Web &amp; Favicon
+            </button>
+            <button @onclick='() => activeCategory = "app"' class="px-3 py-1.5 rounded-lg transition-colors @(activeCategory == "app" ? "bg-white dark:bg-neutral-900 text-neutral-900 dark:text-white shadow-sm font-semibold" : "text-neutral-600 dark:text-neutral-400 hover:text-neutral-900")">
+                App &amp; Mobile
+            </button>
+            <button @onclick='() => activeCategory = "print"' class="px-3 py-1.5 rounded-lg transition-colors @(activeCategory == "print" ? "bg-white dark:bg-neutral-900 text-neutral-900 dark:text-white shadow-sm font-semibold" : "text-neutral-600 dark:text-neutral-400 hover:text-neutral-900")">
+                Stationery
+            </button>
+        </div>
+    </div>
+
+    <!-- Mockups Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        @if (ShouldShow("web"))
+        {
+            <MockupCard Title="Browser Favicon" SubTitle="Active tab favicon on clight.com" Type="browser-favicon" />
+            <MockupCard Title="Website Header" SubTitle="Desktop navigation bar with Clight wordmark" Type="website-header" />
+        }
+
+        @if (ShouldShow("app"))
+        {
+            <MockupCard Title="Application Icons" SubTitle="iOS / macOS squircle icons (Light & Dark)" Type="app-icon" />
+            <MockupCard Title="Documentation Portal" SubTitle="Developer portal sidebar & search" Type="docs-sidebar" />
+            <MockupCard Title="Mobile Splash Screen" SubTitle="Minimalist portrait launching experience" Type="mobile-splash" />
+            <MockupCard Title="Social Avatar" SubTitle="1:1 circular profile avatar with 20% safe margin" Type="social-avatar" />
+        }
+
+        @if (ShouldShow("print"))
+        {
+            <MockupCard Title="Signage / Business Card" SubTitle="Cotton tactile card with debossed black foil" Type="signage-card" />
+        }
+    </div>
+</div>
+
+@code {
+    private string activeCategory = "all";
+
+    private bool ShouldShow(string category)
+    {
+        if (activeCategory == "all") return true;
+        return activeCategory == category;
+    }
+}

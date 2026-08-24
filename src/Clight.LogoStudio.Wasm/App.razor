@@ -1,0 +1,23 @@
+<Router AppAssembly="@typeof(App).Assembly">
+    <Found Context="routeData">
+        <RouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)" />
+        <FocusOnNavigate RouteData="@routeData" Selector="h1" />
+    </Found>
+    <NotFound>
+        <LayoutView Layout="@typeof(MainLayout)">
+            <div class="flex flex-col items-center justify-center min-h-[60vh] text-center p-8">
+                <div class="w-16 h-16 mb-4 text-neutral-400">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <circle cx="12" cy="12" r="10" />
+                        <path d="M12 8v4M12 16h.01" />
+                    </svg>
+                </div>
+                <h1 class="text-2xl font-semibold tracking-tight text-neutral-900 dark:text-white mb-2">Page Not Found</h1>
+                <p class="text-neutral-500 max-w-md mb-6">The requested Clight Studio section does not exist. Please return to the dashboard.</p>
+                <a href="" class="inline-flex items-center px-4 py-2 text-sm font-medium text-white bg-neutral-900 dark:bg-white dark:text-neutral-900 rounded-lg hover:bg-neutral-800 transition-colors">
+                    Back to Dashboard
+                </a>
+            </div>
+        </LayoutView>
+    </NotFound>
+</Router>

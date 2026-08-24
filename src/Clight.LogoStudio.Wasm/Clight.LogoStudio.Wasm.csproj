@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk.BlazorWebAssembly">
+  <PropertyGroup>
+    <Description>Interactive Blazor WebAssembly Studio for Clight Logo preview, parametric generation, and asset export.</Description>
+    <ServiceWorkerAssetsManifest>service-worker-assets.js</ServiceWorkerAssetsManifest>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Clight.Logo.Core\Clight.Logo.Core.csproj" />
+    <ProjectReference Include="..\Clight.Logo.Renderer\Clight.Logo.Renderer.csproj" />
+    <ProjectReference Include="..\Clight.Asset.Generator\Clight.Asset.Generator.csproj" />
+    <ProjectReference Include="..\Clight.Brand.Guideline\Clight.Brand.Guideline.csproj" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="8.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="8.0.0" PrivateAssets="all" />
+  </ItemGroup>
+</Project>

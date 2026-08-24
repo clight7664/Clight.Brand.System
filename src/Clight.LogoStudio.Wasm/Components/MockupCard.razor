@@ -1,0 +1,164 @@
+@inject ISvgLogoRenderer SvgRenderer
+
+<div class="rounded-2xl border border-neutral-200/80 dark:border-neutral-800 bg-white/70 dark:bg-neutral-900/70 backdrop-blur-sm p-5 space-y-4 shadow-sm">
+    <!-- Card Header -->
+    <div class="flex items-center justify-between">
+        <div>
+            <h4 class="text-sm font-semibold text-neutral-900 dark:text-white">@Title</h4>
+            <p class="text-xs text-neutral-400">@SubTitle</p>
+        </div>
+        <span class="text-[10px] font-mono font-medium px-2 py-0.5 rounded bg-neutral-100 dark:bg-neutral-800 text-neutral-500">
+            @Type.ToUpperInvariant()
+        </span>
+    </div>
+
+    <!-- Mockup Viewport -->
+    <div class="w-full rounded-xl overflow-hidden border border-neutral-200/60 dark:border-neutral-800 bg-[#FAF9F6] dark:bg-[#161616] p-4 flex items-center justify-center min-h-[220px]">
+        @if (Type == "website-header")
+        {
+            <!-- Website Header Simulation -->
+            <div class="w-full bg-white dark:bg-neutral-950 rounded-lg shadow-sm border border-neutral-200/70 dark:border-neutral-800 px-4 py-3 flex items-center justify-between">
+                <div class="flex items-center space-x-3">
+                    <div class="w-7 h-7 text-neutral-900 dark:text-white">
+                        @((MarkupString)SvgRenderer.RenderSvg(Parameters, new SvgRenderOptions { Responsive = true, FillColor = "currentColor" }))
+                    </div>
+                    <span class="text-base font-semibold tracking-tight text-neutral-900 dark:text-white">Clight</span>
+                </div>
+                <div class="hidden sm:flex items-center space-x-5 text-xs font-medium text-neutral-600 dark:text-neutral-300">
+                    <span class="hover:text-neutral-900 dark:hover:text-white cursor-pointer">Products</span>
+                    <span class="hover:text-neutral-900 dark:hover:text-white cursor-pointer">Solutions</span>
+                    <span class="hover:text-neutral-900 dark:hover:text-white cursor-pointer">About</span>
+                    <span class="hover:text-neutral-900 dark:hover:text-white cursor-pointer">Contact</span>
+                </div>
+                <div class="flex items-center space-x-2">
+                    <button class="px-3 py-1 text-xs font-medium bg-neutral-900 text-white dark:bg-white dark:text-neutral-900 rounded-md">
+                        Get Started
+                    </button>
+                </div>
+            </div>
+        }
+        else if (Type == "browser-favicon")
+        {
+            <!-- Browser Tab & Address Bar Simulation -->
+            <div class="w-full max-w-md bg-white dark:bg-neutral-950 rounded-lg shadow-sm border border-neutral-200/70 dark:border-neutral-800 overflow-hidden text-xs">
+                <!-- Browser Tabs -->
+                <div class="bg-neutral-100 dark:bg-neutral-900 px-3 pt-2 flex items-center space-x-2 border-b border-neutral-200 dark:border-neutral-800">
+                    <div class="flex space-x-1.5 mr-2">
+                        <span class="w-2.5 h-2.5 rounded-full bg-red-400"></span>
+                        <span class="w-2.5 h-2.5 rounded-full bg-amber-400"></span>
+                        <span class="w-2.5 h-2.5 rounded-full bg-emerald-400"></span>
+                    </div>
+                    <div class="bg-white dark:bg-neutral-950 px-3 py-1.5 rounded-t-md flex items-center space-x-2 border-t border-x border-neutral-200 dark:border-neutral-800">
+                        <div class="w-3.5 h-3.5 text-neutral-900 dark:text-white">
+                            @((MarkupString)SvgRenderer.RenderSvg(Parameters, new SvgRenderOptions { Responsive = true, FillColor = "currentColor" }))
+                        </div>
+                        <span class="font-medium text-neutral-800 dark:text-neutral-200">Clight — Simplicity in Light</span>
+                        <span class="text-neutral-400 hover:text-neutral-600 cursor-pointer">×</span>
+                    </div>
+                </div>
+                <!-- Browser Address Bar -->
+                <div class="p-2 flex items-center space-x-2 bg-white dark:bg-neutral-950">
+                    <div class="flex-1 px-3 py-1 rounded bg-neutral-100 dark:bg-neutral-900 text-neutral-500 font-mono text-[11px] flex items-center space-x-1.5">
+                        <svg class="w-3 h-3 text-emerald-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd" /></svg>
+                        <span>https://clight.com</span>
+                    </div>
+                </div>
+            </div>
+        }
+        else if (Type == "app-icon")
+        {
+            <!-- iOS App Icons in Light and Dark Squircles -->
+            <div class="flex items-center justify-center space-x-6">
+                <!-- Light App Icon -->
+                <div class="flex flex-col items-center space-y-2">
+                    <div class="w-20 h-20 rounded-[22%] bg-white p-4 shadow-xl border border-neutral-100 flex items-center justify-center transition-transform hover:scale-105">
+                        @((MarkupString)SvgRenderer.RenderSvg(Parameters, new SvgRenderOptions { Responsive = true, FillColor = "#111111" }))
+                    </div>
+                    <span class="text-[10px] text-neutral-400 font-medium">Light App Icon</span>
+                </div>
+                <!-- Dark App Icon -->
+                <div class="flex flex-col items-center space-y-2">
+                    <div class="w-20 h-20 rounded-[22%] bg-[#111111] p-4 shadow-xl border border-neutral-800 flex items-center justify-center transition-transform hover:scale-105">
+                        @((MarkupString)SvgRenderer.RenderSvg(Parameters, new SvgRenderOptions { Responsive = true, FillColor = "#FFFFFF" }))
+                    </div>
+                    <span class="text-[10px] text-neutral-400 font-medium">Dark App Icon (White on Black)</span>
+                </div>
+            </div>
+        }
+        else if (Type == "docs-sidebar")
+        {
+            <!-- Documentation Sidebar -->
+            <div class="w-full max-w-xs bg-white dark:bg-neutral-950 rounded-lg p-3 border border-neutral-200/70 dark:border-neutral-800 shadow-sm text-xs space-y-3">
+                <div class="flex items-center space-x-2 pb-2 border-b border-neutral-100 dark:border-neutral-800">
+                    <div class="w-5 h-5 text-neutral-900 dark:text-white">
+                        @((MarkupString)SvgRenderer.RenderSvg(Parameters, new SvgRenderOptions { Responsive = true, FillColor = "currentColor" }))
+                    </div>
+                    <span class="font-semibold text-neutral-900 dark:text-white">Clight Docs</span>
+                </div>
+                <div class="p-1.5 rounded bg-neutral-100 dark:bg-neutral-900 text-neutral-400 text-[11px] flex items-center">
+                    <svg class="w-3.5 h-3.5 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg>
+                    <span>Search documentation...</span>
+                </div>
+                <div class="space-y-1 text-neutral-600 dark:text-neutral-400">
+                    <div class="px-2 py-1 rounded bg-neutral-100 dark:bg-neutral-800 text-neutral-900 dark:text-white font-medium">Introduction</div>
+                    <div class="px-2 py-1">Getting Started</div>
+                    <div class="px-2 py-1">Components</div>
+                    <div class="px-2 py-1">API Reference</div>
+                </div>
+            </div>
+        }
+        else if (Type == "social-avatar")
+        {
+            <!-- Social Circular Avatar -->
+            <div class="flex flex-col items-center space-y-2">
+                <div class="w-24 h-24 rounded-full bg-white dark:bg-neutral-950 p-5 shadow-lg border border-neutral-200 dark:border-neutral-800 flex items-center justify-center ring-4 ring-neutral-100 dark:ring-neutral-900 text-neutral-900 dark:text-white">
+                    @((MarkupString)SvgRenderer.RenderSvg(Parameters, new SvgRenderOptions { Responsive = true, FillColor = "currentColor" }))
+                </div>
+                <span class="text-[11px] font-medium text-neutral-500">Social Avatar (1:1 Ratio)</span>
+            </div>
+        }
+        else if (Type == "mobile-splash")
+        {
+            <!-- Mobile Splash Screen -->
+            <div class="w-40 h-64 rounded-2xl bg-white dark:bg-neutral-950 p-4 border-2 border-neutral-300 dark:border-neutral-700 shadow-2xl flex flex-col justify-between items-center text-center">
+                <div class="w-full flex justify-between text-[9px] text-neutral-400 font-medium">
+                    <span>9:41</span>
+                    <span>5G 100%</span>
+                </div>
+                <div class="w-14 h-14 flex items-center justify-center animate-pulse text-neutral-900 dark:text-white">
+                    @((MarkupString)SvgRenderer.RenderSvg(Parameters, new SvgRenderOptions { Responsive = true, FillColor = "currentColor" }))
+                </div>
+                <div class="text-xs font-semibold tracking-wide text-neutral-900 dark:text-white pb-2">
+                    Clight
+                </div>
+            </div>
+        }
+        else if (Type == "signage-card")
+        {
+            <!-- Tactile Business Card / Signage Mockup -->
+            <div class="w-64 h-36 bg-[#FAF9F6] text-neutral-900 p-5 rounded-lg shadow-xl border border-neutral-200/90 flex flex-col justify-between relative transform -rotate-2 hover:rotate-0 transition-transform">
+                <div class="w-8 h-8">
+                    @((MarkupString)SvgRenderer.RenderSvg(Parameters, new SvgRenderOptions { Responsive = true, FillColor = "#111111" }))
+                </div>
+                <div>
+                    <div class="text-xs font-semibold tracking-tight text-neutral-900">Clight Inc.</div>
+                    <div class="text-[10px] text-neutral-500 font-mono">Simplicity in Light • clight.com</div>
+                </div>
+            </div>
+        }
+        else
+        {
+            <!-- Generic Minimal Showcase -->
+            <div class="w-24 h-24 flex items-center justify-center text-neutral-900 dark:text-white">
+                @((MarkupString)SvgRenderer.RenderSvg(Parameters, new SvgRenderOptions { Responsive = true, FillColor = "currentColor" }))
+            </div>
+        }
+    </div>
+</div>
+
+@code {
+    [Parameter] public string Title { get; set; } = string.Empty;
+    [Parameter] public string SubTitle { get; set; } = string.Empty;
+    [Parameter] public string Type { get; set; } = "generic";
+    [Parameter] public LogoParameters Parameters { get; set; } = LogoParameters.CreateApproved();
+}

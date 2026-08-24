@@ -1,0 +1,56 @@
+@inject ISvgLogoRenderer SvgRenderer
+
+<div class="relative w-full h-full flex items-center justify-center overflow-hidden @GetBackgroundClass() rounded-2xl border border-neutral-200/80 dark:border-neutral-800 shadow-sm" style="min-height: @(MinHeight ?? "360px");">
+    <!-- SVG Container with Zoom Scale -->
+    <div class="w-full h-full max-w-[440px] max-h-[440px] aspect-square flex items-center justify-center p-6 transition-transform duration-200 ease-out" style="transform: scale(@ZoomLevel);">
+        @if (ViewMode == "construction")
+        {
+            @((MarkupString)SvgRenderer.RenderConstructionSvg(Parameters, ConstructionOptions))
+        }
+        else if (ViewMode == "grid")
+        {
+            @((MarkupString)SvgRenderer.RenderGridSvg(Parameters, GridOptions))
+        }
+        else if (ViewMode == "safe-area")
+        {
+            @((MarkupString)SvgRenderer.RenderSafeAreaSvg(Parameters, SafeAreaOptions))
+        }
+        else
+        {
+            @((MarkupString)SvgRenderer.RenderThemeLogo(Theme, Parameters, RenderOptions))
+        }
+    </div>
+
+    <!-- Mode Badge -->
+    <div class="absolute bottom-3 left-3 px-2.5 py-1 rounded-md bg-neutral-900/5 dark:bg-white/10 backdrop-blur-md text-[11px] font-mono tracking-wide text-neutral-500 dark:text-neutral-400 border border-neutral-200/50 dark:border-neutral-700/50">
+        @GetModeLabel()
+    </div>
+</div>
+
+@code {
+    [Parameter] public LogoParameters Parameters { get; set; } = LogoParameters.CreateApproved();
+    [Parameter] public LogoTheme Theme { get; set; } = LogoTheme.Light;
+    [Parameter] public string ViewMode { get; set; } = "standard"; // standard, construction, grid, safe-area
+    [Parameter] public double ZoomLevel { get; set; } = 1.0;
+    [Parameter] public string? MinHeight { get; set; }
+    [Parameter] public SvgRenderOptions? RenderOptions { get; set; }
+    [Parameter] public ConstructionRenderOptions? ConstructionOptions { get; set; }
+    [Parameter] public GridRenderOptions? GridOptions { get; set; }
+    [Parameter] public SafeAreaOptions? SafeAreaOptions { get; set; }
+
+    private string GetBackgroundClass() => Theme switch
+    {
+        LogoTheme.Dark => "bg-[#111111]",
+        LogoTheme.Transparent => "bg-checkerboard",
+        LogoTheme.Paper => "bg-paper-texture",
+        _ => "bg-[#FAF9F6]"
+    };
+
+    private string GetModeLabel()
+    {
+        if (ViewMode == "construction") return "CONSTRUCTION BLUEPRINT";
+        if (ViewMode == "grid") return "MODULAR 32px GRID";
+        if (ViewMode == "safe-area") return "1X CLEAR SPACE";
+        return $"{Theme.ToString().ToUpperInvariant()} THEME • 512×512";
+    }
+}

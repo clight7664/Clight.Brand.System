@@ -1,0 +1,58 @@
+@inject ISvgLogoRenderer SvgRenderer
+
+<div class="space-y-4">
+    <div class="flex items-center justify-between">
+        <h3 class="text-sm font-semibold tracking-tight text-neutral-900 dark:text-white uppercase tracking-wider">
+            Size Matrix (尺寸矩阵)
+        </h3>
+        <span class="text-xs text-neutral-400 font-mono">16px — 1024px</span>
+    </div>
+
+    <!-- Responsive Grid -->
+    <div class="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-3">
+        @foreach (var size in SizeDimension.AllStandardSizes)
+        {
+            <div class="group relative flex flex-col items-center justify-between p-3 rounded-xl border border-neutral-200/70 dark:border-neutral-800 bg-white/60 dark:bg-neutral-900/60 hover:border-neutral-400 dark:hover:border-neutral-600 transition-all">
+                <!-- Size Label -->
+                <div class="text-[11px] font-mono font-medium text-neutral-400 group-hover:text-neutral-900 dark:group-hover:text-white transition-colors">
+                    @size.Label
+                </div>
+
+                <!-- Preview Area -->
+                <div class="my-3 flex items-center justify-center text-neutral-900 dark:text-white" style="width: @(GetDisplayBoxSize(size.Width))px; height: @(GetDisplayBoxSize(size.Height))px;">
+                    <div style="width: @(GetIconRenderSize(size.Width))px; height: @(GetIconRenderSize(size.Height))px;">
+                        @((MarkupString)SvgRenderer.RenderSvg(Parameters, new SvgRenderOptions { Responsive = true, FillColor = "currentColor" }))
+                    </div>
+                </div>
+
+                <!-- Category Subtext -->
+                <div class="text-[9px] text-neutral-400 text-center truncate max-w-full">
+                    @size.Category.Split('/')[0].Trim()
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+@code {
+    [Parameter] public LogoParameters Parameters { get; set; } = LogoParameters.CreateApproved();
+
+    private int GetDisplayBoxSize(int actualSize)
+    {
+        if (actualSize <= 32) return 40;
+        if (actualSize <= 64) return 56;
+        if (actualSize <= 128) return 72;
+        return 88;
+    }
+
+    private int GetIconRenderSize(int actualSize)
+    {
+        if (actualSize <= 16) return 16;
+        if (actualSize <= 24) return 24;
+        if (actualSize <= 32) return 32;
+        if (actualSize <= 48) return 44;
+        if (actualSize <= 64) return 56;
+        if (actualSize <= 128) return 68;
+        return 76;
+    }
+}

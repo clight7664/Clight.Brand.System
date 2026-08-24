@@ -1,0 +1,62 @@
+@inject ISvgLogoRenderer SvgRenderer
+
+<div class="space-y-4">
+    <!-- Viewport Container -->
+    <div class="relative w-full aspect-square max-w-xl mx-auto rounded-2xl bg-[#FAF9F6] border border-neutral-200/80 dark:border-neutral-800 shadow-sm p-4 overflow-hidden flex items-center justify-center">
+        @((MarkupString)SvgRenderer.RenderConstructionSvg(Parameters, options))
+    </div>
+
+    <!-- Interactive Layer Toggles -->
+    <div class="grid grid-cols-2 sm:grid-cols-3 gap-2 p-3 rounded-xl bg-neutral-100/70 dark:bg-neutral-900 border border-neutral-200/60 dark:border-neutral-800 text-xs">
+        <label class="flex items-center space-x-2 cursor-pointer p-1.5 rounded hover:bg-neutral-200/50 dark:hover:bg-neutral-800">
+            <input type="checkbox" @bind="showOuter" @bind:after="UpdateOptions" class="rounded text-sky-600 focus:ring-sky-500" />
+            <span class="text-neutral-700 dark:text-neutral-300">Outer Arc (R_out)</span>
+        </label>
+        <label class="flex items-center space-x-2 cursor-pointer p-1.5 rounded hover:bg-neutral-200/50 dark:hover:bg-neutral-800">
+            <input type="checkbox" @bind="showInner" @bind:after="UpdateOptions" class="rounded text-amber-600 focus:ring-amber-500" />
+            <span class="text-neutral-700 dark:text-neutral-300">Inner Arc (R_in)</span>
+        </label>
+        <label class="flex items-center space-x-2 cursor-pointer p-1.5 rounded hover:bg-neutral-200/50 dark:hover:bg-neutral-800">
+            <input type="checkbox" @bind="showGolden" @bind:after="UpdateOptions" class="rounded text-yellow-600 focus:ring-yellow-500" />
+            <span class="text-neutral-700 dark:text-neutral-300">Golden Circles (φ)</span>
+        </label>
+        <label class="flex items-center space-x-2 cursor-pointer p-1.5 rounded hover:bg-neutral-200/50 dark:hover:bg-neutral-800">
+            <input type="checkbox" @bind="showAngles" @bind:after="UpdateOptions" class="rounded text-rose-600 focus:ring-rose-500" />
+            <span class="text-neutral-700 dark:text-neutral-300">Tip Angles (46°)</span>
+        </label>
+        <label class="flex items-center space-x-2 cursor-pointer p-1.5 rounded hover:bg-neutral-200/50 dark:hover:bg-neutral-800">
+            <input type="checkbox" @bind="showCrosshair" @bind:after="UpdateOptions" class="rounded text-neutral-600 focus:ring-neutral-500" />
+            <span class="text-neutral-700 dark:text-neutral-300">Center Axes</span>
+        </label>
+        <label class="flex items-center space-x-2 cursor-pointer p-1.5 rounded hover:bg-neutral-200/50 dark:hover:bg-neutral-800">
+            <input type="checkbox" @bind="showLabels" @bind:after="UpdateOptions" class="rounded text-neutral-600 focus:ring-neutral-500" />
+            <span class="text-neutral-700 dark:text-neutral-300">Dimension Specs</span>
+        </label>
+    </div>
+</div>
+
+@code {
+    [Parameter] public LogoParameters Parameters { get; set; } = LogoParameters.CreateApproved();
+
+    private bool showOuter = true;
+    private bool showInner = true;
+    private bool showGolden = true;
+    private bool showAngles = true;
+    private bool showCrosshair = true;
+    private bool showLabels = true;
+
+    private ConstructionRenderOptions options = new();
+
+    private void UpdateOptions()
+    {
+        options = new ConstructionRenderOptions
+        {
+            ShowOuterCircle = showOuter,
+            ShowInnerCircle = showInner,
+            ShowGoldenCircles = showGolden,
+            ShowTipAngles = showAngles,
+            ShowCenterCrosshair = showCrosshair,
+            ShowDimensionLabels = showLabels
+        };
+    }
+}
